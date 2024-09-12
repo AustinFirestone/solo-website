@@ -31,8 +31,7 @@
         <p><strong>Analogy:</strong> <span id="analogy">No Analogy</span></p>
         <p><strong>Real-World Application:</strong> <span id="real-world-application">No Real-World Application</span></p>
         <p><strong>Points for Further Research:</strong> <ul id="points-for-research"></ul></p>
-        <p><strong>Transcript Preview:</strong> <span id="transcript-preview">No Transcript Preview</span></p>
-        <p>To view the full note and transcript, download our app.</p>
+        <p>To view the full note, download our app.</p>
         <p><a href="https://apps.apple.com/app/idYOUR_APP_ID">Download App</a></p>
     </section>
 
@@ -52,8 +51,6 @@
         const title = getParameterByName('title');
         const date = getParameterByName('date');
         const snapshot = getParameterByName('snapshot');
-        const transcriptPreview = getParameterByName('transcriptPreview');
-        const jsonContent = getParameterByName('json');  // Assuming JSON content is passed through the 'json' parameter
 
         // Set the parsed values into the HTML
         document.getElementById('note-title').innerText = title || 'No Title';
@@ -63,14 +60,12 @@
             document.getElementById('note-date').innerText = formattedDate;
         }
 
-        document.getElementById('note-snapshot').innerText = snapshot || 'No Snapshot';
-        document.getElementById('transcript-preview').innerText = transcriptPreview || 'No Transcript Preview';
-
-        // Parse and display JSON content
-        if (jsonContent) {
+        // Parse and display the snapshot JSON content
+        if (snapshot) {
             try {
-                const json = JSON.parse(jsonContent);
+                const json = JSON.parse(snapshot);
 
+                document.getElementById('note-snapshot').innerText = json.snapshot || 'No Snapshot';
                 document.getElementById('transcript-summary').innerText = json.transcriptSummary || 'No Transcript Summary';
                 
                 // Populate main topics
@@ -92,7 +87,7 @@
                     pointsList.appendChild(listItem);
                 });
             } catch (error) {
-                console.error("Error parsing JSON content:", error);
+                console.error("Error parsing snapshot content:", error);
             }
         }
     </script>
