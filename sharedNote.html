@@ -6,15 +6,79 @@
     <title>Shared Note</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 20px;
+            color: #333;
         }
+
+        h1, h2, p {
+            margin: 0 0 15px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
         header h1 {
-            font-size: 24px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        header p {
+            font-size: 1rem;
+            color: #888;
+        }
+
+        section {
+            background-color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #007BFF;
             margin-bottom: 10px;
         }
-        section p {
-            margin-bottom: 15px;
+
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+        }
+
+        .download-app {
+            display: inline-block;
+            background-color: #007BFF;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-top: 20px;
+            display: block;
+            text-align: center;
+        }
+
+        .download-app:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
@@ -25,15 +89,40 @@
     </header>
 
     <section>
-        <p><strong>Snapshot:</strong> <span id="note-snapshot">No Snapshot</span></p>
-        <p><strong>Transcript Summary:</strong> <span id="transcript-summary">No Transcript Summary</span></p>
-        <p><strong>Main Topics:</strong> <ul id="main-topics"></ul></p>
-        <p><strong>Analogy:</strong> <span id="analogy">No Analogy</span></p>
-        <p><strong>Real-World Application:</strong> <span id="real-world-application">No Real-World Application</span></p>
-        <p><strong>Points for Further Research:</strong> <ul id="points-for-research"></ul></p>
-        <p>To view the full note, download our app.</p>
-        <p><a href="https://apps.apple.com/app/idYOUR_APP_ID">Download App</a></p>
+        <h2>Snapshot</h2>
+        <p id="note-snapshot">No Snapshot</p>
     </section>
+
+    <section>
+        <h2>Transcript Summary</h2>
+        <p id="transcript-summary">No Transcript Summary</p>
+    </section>
+
+    <section>
+        <h2>Main Topics</h2>
+        <ul id="main-topics">
+            <!-- Main topics will be injected here -->
+        </ul>
+    </section>
+
+    <section>
+        <h2>Analogy</h2>
+        <p id="analogy">No Analogy</p>
+    </section>
+
+    <section>
+        <h2>Real-World Application</h2>
+        <p id="real-world-application">No Real-World Application</p>
+    </section>
+
+    <section>
+        <h2>Points for Further Research</h2>
+        <ul id="points-for-research">
+            <!-- Points for further research will be injected here -->
+        </ul>
+    </section>
+
+    <a href="https://apps.apple.com/app/idYOUR_APP_ID" class="download-app">Download App</a>
 
     <script>
         // Function to parse URL parameters
