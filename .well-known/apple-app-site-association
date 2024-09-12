@@ -5,7 +5,7 @@
       {
         "appID": "
 K9574SJR2D.firestone.SonarNote",
-        "paths": [ "/sharedNote/*" ]
+        "paths": [ "/solo-website/sharedNote/*" ]
       }
     ]
   }
