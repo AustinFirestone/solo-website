@@ -7,60 +7,94 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 40px;
+            margin: 20px;
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        h1 {
+        header h1 {
             font-size: 24px;
-            color: #333;
+            margin-bottom: 10px;
         }
-        p {
-            font-size: 18px;
-            color: #666;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
+        section p {
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1 id="note-title">Note Title</h1>
-        <p id="note-date">Note Date</p>
-        <p id="note-snapshot">Note Snapshot</p>
-        <p id="note-transcript">Transcript Preview</p>
+    <header>
+        <h1 id="note-title">No Title</h1>
+        <p id="note-date">No Date</p>
+    </header>
 
-        <p><strong>To view the full note and transcript, <a href="https://apps.apple.com/app/idYOUR_APP_ID">download our app</a>.</strong></p>
-    </div>
+    <section>
+        <p><strong>Snapshot:</strong> <span id="note-snapshot">No Snapshot</span></p>
+        <p><strong>Transcript Summary:</strong> <span id="transcript-summary">No Transcript Summary</span></p>
+        <p><strong>Main Topics:</strong> <ul id="main-topics"></ul></p>
+        <p><strong>Analogy:</strong> <span id="analogy">No Analogy</span></p>
+        <p><strong>Real-World Application:</strong> <span id="real-world-application">No Real-World Application</span></p>
+        <p><strong>Points for Further Research:</strong> <ul id="points-for-research"></ul></p>
+        <p><strong>Transcript Preview:</strong> <span id="transcript-preview">No Transcript Preview</span></p>
+        <p>To view the full note and transcript, download our app.</p>
+        <p><a href="https://apps.apple.com/app/idYOUR_APP_ID">Download App</a></p>
+    </section>
 
     <script>
-        // Function to parse the URL parameters
-        function getQueryParams() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                title: params.get('title'),
-                date: params.get('date'),
-                snapshot: params.get('snapshot'),
-                transcript: params.get('transcript')
-            };
+        // Function to parse URL parameters
+        function getParameterByName(name) {
+            const url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-        // Display the parsed data on the page
-        window.onload = function() {
-            const { title, date, snapshot, transcript } = getQueryParams();
+        // Get the note details from the URL
+        const title = getParameterByName('title');
+        const date = getParameterByName('date');
+        const snapshot = getParameterByName('snapshot');
+        const transcriptPreview = getParameterByName('transcriptPreview');
+        const jsonContent = getParameterByName('json');  // Assuming JSON content is passed through the 'json' parameter
 
-            document.getElementById('note-title').textContent = title ? decodeURIComponent(title) : "No Title";
-            document.getElementById('note-date').textContent = date ? decodeURIComponent(date) : "No Date";
-            document.getElementById('note-snapshot').textContent = snapshot ? decodeURIComponent(snapshot) : "No Snapshot";
-            document.getElementById('note-transcript').textContent = transcript ? decodeURIComponent(transcript) : "No Transcript Preview";
-        };
+        // Set the parsed values into the HTML
+        document.getElementById('note-title').innerText = title || 'No Title';
+
+        if (date) {
+            const formattedDate = new Date(parseFloat(date) * 1000).toLocaleDateString();
+            document.getElementById('note-date').innerText = formattedDate;
+        }
+
+        document.getElementById('note-snapshot').innerText = snapshot || 'No Snapshot';
+        document.getElementById('transcript-preview').innerText = transcriptPreview || 'No Transcript Preview';
+
+        // Parse and display JSON content
+        if (jsonContent) {
+            try {
+                const json = JSON.parse(jsonContent);
+
+                document.getElementById('transcript-summary').innerText = json.transcriptSummary || 'No Transcript Summary';
+                
+                // Populate main topics
+                const mainTopicsList = document.getElementById('main-topics');
+                json.mainTopics.forEach(topic => {
+                    const listItem = document.createElement('li');
+                    listItem.innerText = topic;
+                    mainTopicsList.appendChild(listItem);
+                });
+
+                document.getElementById('analogy').innerText = json.analogy || 'No Analogy';
+                document.getElementById('real-world-application').innerText = json.realWorldApplication || 'No Real-World Application';
+
+                // Populate points for further research
+                const pointsList = document.getElementById('points-for-research');
+                json.pointsForFurtherResearch.forEach(point => {
+                    const listItem = document.createElement('li');
+                    listItem.innerText = point;
+                    pointsList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error("Error parsing JSON content:", error);
+            }
+        }
     </script>
 </body>
 </html>
