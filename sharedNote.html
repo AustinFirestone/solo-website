@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Note</title>
+</head>
+<body>
+    <h1>Note Preview</h1>
+    <p id="note-title"></p>
+    <p id="note-content"></p>
+    
+    <button onclick="downloadApp()">Download the App</button>
+
+    <script>
+        // Get the recordID from the URL (e.g., ?id=CKRecordID)
+        const params = new URLSearchParams(window.location.search);
+        const recordID = params.get('id');
+
+        // Replace this with your API or CloudKit URL to fetch the note
+        fetch(`https://your-api-endpoint.com/note/${recordID}`)
+            .then(response => response.json())
+            .then(note => {
+                document.getElementById('note-title').innerText = note.title;
+                document.getElementById('note-content').innerText = note.content;
+            });
+
+        function downloadApp() {
+            window.location.href = "https://apps.apple.com/app/idYOUR_APP_ID";
+        }
+    </script>
+</body>
+</html>
