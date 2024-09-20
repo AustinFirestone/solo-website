@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shared Note</title>
     <style>
+        /* Your existing CSS styles */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #f4f6f8;
@@ -89,6 +90,107 @@
         }
 
     </style>
+    <!-- CloudKit JS Configuration -->
+    <script src="https://cdn.apple-cloudkit.com/ck/2/cloudkit.js"></script>
+    <script>
+        // Replace 'YOUR_WEB_API_TOKEN' with your actual Web API Token
+        CloudKit.configure({
+            containers: [{
+                containerIdentifier: 'iCloud.sonarnote',
+                apiToken: '9ffe4f27aedb4ab6e31172c4b4df5216d633ffdc88505f9bd05834508720492e', // Replace with your actual Web API Token
+                environment: 'development' // Change to 'development' if needed
+            }]
+        });
+
+        // Initialize CloudKit
+        const container = CloudKit.getDefaultContainer();
+        const publicDB = container.publicCloudDatabase;
+
+        async function fetchNote(recordID) {
+            try {
+                const response = await publicDB.fetchRecord({ recordName: recordID });
+                const record = response.records[0];
+                return record;
+            } catch (error) {
+                console.error("Error fetching note:", error);
+                return null;
+            }
+        }
+
+        // Function to populate the HTML with fetched note data
+        async function populateNote() {
+            const recordID = getParameterByName('id');
+            if (!recordID) {
+                console.error("No record ID found in URL.");
+                return;
+            }
+
+            const record = await fetchNote(recordID);
+            if (!record) {
+                console.error("Failed to fetch note record.");
+                return;
+            }
+
+            // Extract fields from the record
+            const title = record['title'] || 'No Title';
+            const date = record['date'] ? new Date(record['date'].seconds * 1000) : null;
+            const transcriptSummary = record['transcriptSummary'] || 'No Transcript Summary';
+            const snapshot = record['snapshot'] || 'No Snapshot';
+            const analogy = record['analogy'] || 'No Analogy';
+            const realWorldApplication = record['realWorldApplication'] || 'No Real-World Application';
+
+            // Assuming mainTopics and pointsForFurtherResearch are arrays of strings
+            const mainTopics = record['mainTopics'] || [];
+            const pointsForFurtherResearch = record['pointsForFurtherResearch'] || [];
+
+            // Populate the HTML elements
+            document.getElementById('note-title').innerText = title;
+
+            if (date) {
+                const formattedDate = date.toLocaleDateString();
+                document.getElementById('note-date').innerText = formattedDate;
+            } else {
+                document.getElementById('note-date').innerText = 'Unknown Date';
+            }
+
+            document.getElementById('note-snapshot').innerText = snapshot;
+            document.getElementById('transcript-summary').innerText = transcriptSummary;
+            document.getElementById('analogy').innerText = analogy;
+            document.getElementById('real-world-application').innerText = realWorldApplication;
+
+            // Populate main topics
+            const mainTopicsList = document.getElementById('main-topics');
+            mainTopicsList.innerHTML = ''; // Clear existing items
+            mainTopics.forEach(topic => {
+                const listItem = document.createElement('li');
+                listItem.innerText = topic;
+                mainTopicsList.appendChild(listItem);
+            });
+
+            // Populate points for further research
+            const pointsList = document.getElementById('points-for-research');
+            pointsList.innerHTML = ''; // Clear existing items
+            pointsForFurtherResearch.forEach(point => {
+                const listItem = document.createElement('li');
+                listItem.innerText = point;
+                pointsList.appendChild(listItem);
+            });
+        }
+
+        // Function to parse URL parameters
+        function getParameterByName(name) {
+            const url = window.location.href;
+            name = name.replace(/[\[\]]/g, '\\$&');
+            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+            const results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+
+        // Populate the note when the page loads
+        window.onload = populateNote;
+    </script>
 </head>
 <body>
     <header>
@@ -135,62 +237,5 @@
     </div>
 
     <a href="https://apps.apple.com/app/idYOUR_APP_ID" class="download-app">Install Solo</a>
-
-    <script>
-        // Function to parse URL parameters
-        function getParameterByName(name) {
-            const url = window.location.href;
-            name = name.replace(/[\[\]]/g, '\\$&');
-            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-            const results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
-
-        // Get the note details from the URL
-        const title = getParameterByName('title');
-        const date = getParameterByName('date');
-        const snapshot = getParameterByName('snapshot');
-
-        // Set the parsed values into the HTML
-        document.getElementById('note-title').innerText = title || 'No Title';
-
-        if (date) {
-            const formattedDate = new Date(parseFloat(date) * 1000).toLocaleDateString();
-            document.getElementById('note-date').innerText = formattedDate;
-        }
-
-        // Parse and display the snapshot JSON content
-        if (snapshot) {
-            try {
-                const json = JSON.parse(snapshot);
-
-                document.getElementById('note-snapshot').innerText = json.snapshot || 'No Snapshot';
-                document.getElementById('transcript-summary').innerText = json.transcriptSummary || 'No Transcript Summary';
-                
-                // Populate main topics
-                const mainTopicsList = document.getElementById('main-topics');
-                json.mainTopics.forEach(topic => {
-                    const listItem = document.createElement('li');
-                    listItem.innerText = topic;
-                    mainTopicsList.appendChild(listItem);
-                });
-
-                document.getElementById('analogy').innerText = json.analogy || 'No Analogy';
-                document.getElementById('real-world-application').innerText = json.realWorldApplication || 'No Real-World Application';
-
-                // Populate points for further research
-                const pointsList = document.getElementById('points-for-research');
-                json.pointsForFurtherResearch.forEach(point => {
-                    const listItem = document.createElement('li');
-                    listItem.innerText = point;
-                    pointsList.appendChild(listItem);
-                });
-            } catch (error) {
-                console.error("Error parsing snapshot content:", error);
-            }
-        }
-    </script>
 </body>
 </html>
