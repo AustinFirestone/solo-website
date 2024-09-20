@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shared Note</title>
     <style>
-        /* Your existing CSS styles */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: #f4f6f8;
@@ -15,12 +14,12 @@
         }
 
         h1, h2, p {
-            margin: 0 0 10px; /* Shortened the space between elements */
+            margin: 0 0 10px;
         }
 
         header {
             text-align: center;
-            margin-bottom: 20px; /* Reduced space between date and widgets */
+            margin-bottom: 20px;
         }
 
         header h1 {
@@ -37,16 +36,15 @@
         section {
             background-color: #fff;
             border-radius: 12px;
-            padding: 15px; /* Reduced padding for a tighter layout */
+            padding: 15px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            margin-bottom: 20px; /* Shortened space between sections */
+            margin-bottom: 20px;
         }
 
         h2 {
             font-size: 1.5rem;
             font-weight: bold;
             color: #007BFF;
-            margin-bottom: 10px;
         }
 
         p {
@@ -68,7 +66,7 @@
             display: inline-block;
             background-color: #007BFF;
             color: white;
-            padding: 10px 20px; /* Adjusted padding for a cleaner look */
+            padding: 10px 20px;
             text-decoration: none;
             border-radius: 25px;
             font-size: 1.2rem;
@@ -97,8 +95,8 @@
         CloudKit.configure({
             containers: [{
                 containerIdentifier: 'iCloud.sonarnote',
-                apiToken: '9ffe4f27aedb4ab6e31172c4b4df5216d633ffdc88505f9bd05834508720492e', // Replace with your actual Web API Token
-                environment: 'development' // Change to 'development' if needed
+                apiToken: 'YOUR_WEB_API_TOKEN', // Replace with your actual Web API Token
+                environment: 'production' // Change to 'development' if needed
             }]
         });
 
@@ -134,16 +132,9 @@
             // Extract fields from the record
             const title = record['title'] || 'No Title';
             const date = record['date'] ? new Date(record['date'].seconds * 1000) : null;
-            const transcriptSummary = record['transcriptSummary'] || 'No Transcript Summary';
-            const snapshot = record['snapshot'] || 'No Snapshot';
-            const analogy = record['analogy'] || 'No Analogy';
-            const realWorldApplication = record['realWorldApplication'] || 'No Real-World Application';
+            const content = record['content'] || '';
 
-            // Assuming mainTopics and pointsForFurtherResearch are arrays of strings
-            const mainTopics = record['mainTopics'] || [];
-            const pointsForFurtherResearch = record['pointsForFurtherResearch'] || [];
-
-            // Populate the HTML elements
+            // Set title and date
             document.getElementById('note-title').innerText = title;
 
             if (date) {
@@ -153,28 +144,35 @@
                 document.getElementById('note-date').innerText = 'Unknown Date';
             }
 
-            document.getElementById('note-snapshot').innerText = snapshot;
-            document.getElementById('transcript-summary').innerText = transcriptSummary;
-            document.getElementById('analogy').innerText = analogy;
-            document.getElementById('real-world-application').innerText = realWorldApplication;
+            // Parse and display content
+            try {
+                const jsonContent = JSON.parse(content);
 
-            // Populate main topics
-            const mainTopicsList = document.getElementById('main-topics');
-            mainTopicsList.innerHTML = ''; // Clear existing items
-            mainTopics.forEach(topic => {
-                const listItem = document.createElement('li');
-                listItem.innerText = topic;
-                mainTopicsList.appendChild(listItem);
-            });
+                // Assuming content is structured as shown below
+                document.getElementById('note-snapshot').innerText = jsonContent.snapshot || 'No Snapshot';
+                document.getElementById('transcript-summary').innerText = jsonContent.transcriptSummary || 'No Transcript Summary';
+                
+                // Populate main topics
+                const mainTopicsList = document.getElementById('main-topics');
+                jsonContent.mainTopics.forEach(topic => {
+                    const listItem = document.createElement('li');
+                    listItem.innerText = topic;
+                    mainTopicsList.appendChild(listItem);
+                });
 
-            // Populate points for further research
-            const pointsList = document.getElementById('points-for-research');
-            pointsList.innerHTML = ''; // Clear existing items
-            pointsForFurtherResearch.forEach(point => {
-                const listItem = document.createElement('li');
-                listItem.innerText = point;
-                pointsList.appendChild(listItem);
-            });
+                document.getElementById('analogy').innerText = jsonContent.analogy || 'No Analogy';
+                document.getElementById('real-world-application').innerText = jsonContent.realWorldApplication || 'No Real-World Application';
+
+                // Populate points for further research
+                const pointsList = document.getElementById('points-for-research');
+                jsonContent.pointsForFurtherResearch.forEach(point => {
+                    const listItem = document.createElement('li');
+                    listItem.innerText = point;
+                    pointsList.appendChild(listItem);
+                });
+            } catch (error) {
+                console.error("Error parsing content JSON:", error);
+            }
         }
 
         // Function to parse URL parameters
