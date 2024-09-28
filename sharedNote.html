@@ -264,111 +264,85 @@
         <p><a href="https://solomonnote.com">Back to Home</a></p>
     </footer>
 
-    <!-- CloudKit JS Configuration -->
     <script src="https://cdn.apple-cloudkit.com/ck/2/cloudkit.js"></script>
-    <script>
-        // Configure CloudKit
-        CloudKit.configure({
-            containers: [{
-                containerIdentifier: 'iCloud.sonarnote',
-                apiTokenAuth: {
-                    apiToken: 'd6f5f5e31a5b36a7e42448210c0048dc3234d153c008ae2633e34e12bd28dccb', // Replace with your actual Web API Token
-                    persist: true
-                },
-                environment: 'development'
-            }]
-        });
+<script>
+    // Configure CloudKit
+    CloudKit.configure({
+        containers: [{
+            containerIdentifier: 'iCloud.sonarnote', // Your actual container ID
+            apiTokenAuth: {
+                apiToken: 'd6f5f5e31a5b36a7e42448210c0048dc3234d153c008ae2633e34e12bd28dccb', // Your actual Web API token
+                persist: true
+            },
+            environment: 'development' // or 'production' as needed
+        }]
+    });
 
-        // Initialize CloudKit
-        const container = CloudKit.getDefaultContainer();
-        const publicDB = container.publicCloudDatabase;
+    // Get the default container and public database
+    const container = CloudKit.getDefaultContainer();
+    const publicDB = container.publicCloudDatabase;
 
-        // Function to parse URL parameters
-        function getParameterByName(name) {
-            const url = window.location.href;
-            name = name.replace(/[\[\]]/g, '\\$&');
-            const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-            const results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    // Function to extract the record ID from the URL
+    function getRecordIDFromURL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const recordID = urlParams.get('id');
+        return recordID;
+    }
+
+    // Function to fetch and display the note
+    function fetchAndDisplayNote() {
+        console.log('Starting fetchAndDisplayNote function');
+
+        const recordID = getRecordIDFromURL(); // Extract the record ID from the URL
+        console.log('Extracted RecordID:', recordID);
+
+        if (!recordID) {
+            console.error('No record ID found in the URL');
+            return;
         }
 
-        // Fetch and display the note data
-        async function fetchAndDisplayNote() {
-            const recordID = getParameterByName('id');
-            if (!recordID) {
-                console.error("No record ID found in URL.");
-                return;
-            }
+        publicDB.fetchRecords({ recordName: recordID })
+            .then(function(response) {
+                console.log('FetchRecord response:', response);
 
-            try {
-                const response = await publicDB.fetchRecords(recordID);
-                const record = response.records[0];
-
-                if (!record) {
-                    console.error("Record not found.");
+                // Check if there are errors in the response
+                if (response.hasErrors) {
+                    console.error('Error fetching record:', response.errors[0]);
                     return;
                 }
 
-                // Extract note data
-                const title = record.fields.title.value || 'Untitled';
-                const date = record.fields.date.value ? new Date(record.fields.date.value) : null;
-                const summaryContent = record.fields.summaryContent.value || '{}'; // Assuming summary is stored as JSON string
+                // Access the record from response.records[0]
+                const record = response.records[0]; // Fetch the first record from the array
+                if (!record) {
+                    console.error('No record found.');
+                    return;
+                }
 
-                // Update Open Graph and Twitter metadata dynamically
-                document.querySelector('meta[property="og:title"]').setAttribute('content', title);
-                document.querySelector('meta[property="og:url"]').setAttribute('content', window.location.href);
-                document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
-                document.querySelector('meta[name="twitter:url"]').setAttribute('content', window.location.href);
+                console.log('Fetched record:', record);
 
-                // Parse summary content
-                const summaryData = JSON.parse(summaryContent);
+                // Extract fields from the record
+                const title = record.fields.title ? record.fields.title.value : 'Untitled';
+                const date = record.fields.date ? new Date(record.fields.date.value).toLocaleDateString() : 'Unknown Date';
+                const transcript = record.fields.transcript ? record.fields.transcript.value : 'No Transcript Available';
 
-                // Update the page with note data
+                console.log('Title:', title);
+                console.log('Date:', date);
+                console.log('Transcript:', transcript);
+
+                // Update webpage elements
                 document.getElementById('note-title').innerText = title;
-                document.getElementById('note-date').innerText = date ? date.toLocaleDateString() : 'Unknown Date';
-                document.getElementById('note-snapshot').innerText = summaryData.snapshot || 'No Snapshot Available';
-                document.getElementById('transcript-summary').innerText = summaryData.transcriptSummary || 'No Transcript Summary Available';
-                document.getElementById('analogy').innerText = summaryData.analogy || 'No Analogy Available';
-                document.getElementById('real-world-application').innerText = summaryData.realWorldApplication || 'No Real-World Application Available';
+                document.getElementById('note-date').innerText = date;
+                document.getElementById('note-snapshot').innerText = transcript;  // Display transcript as snapshot for now
+                document.getElementById('transcript-summary').innerText = transcript;  // Assuming you want to display it here as well
 
-                // Populate main topics
-                const mainTopicsList = document.getElementById('main-topics');
-                if (summaryData.mainTopics && summaryData.mainTopics.length > 0) {
-                    summaryData.mainTopics.forEach(topic => {
-                        const listItem = document.createElement('li');
-                        listItem.innerText = topic;
-                        mainTopicsList.appendChild(listItem);
-                    });
-                } else {
-                    mainTopicsList.innerHTML = '<li>No Main Topics Available</li>';
-                }
+            })
+            .catch(function(error) {
+                console.error('Fetch failed with error:', error);
+            });
+    }
 
-                // Populate points for further research
-                const pointsList = document.getElementById('points-for-research');
-                if (summaryData.pointsForFurtherResearch && summaryData.pointsForFurtherResearch.length > 0) {
-                    summaryData.pointsForFurtherResearch.forEach(point => {
-                        const listItem = document.createElement('li');
-                        listItem.innerText = point;
-                        pointsList.appendChild(listItem);
-                    });
-                } else {
-                    pointsList.innerHTML = '<li>No Points for Further Research Available</li>';
-                }
-
-                // Update Open Graph and Twitter description
-                const ogDescription = summaryData.snapshot || 'Snapshot of the note.';
-                document.querySelector('meta[property="og:description"]').setAttribute('content', ogDescription);
-                document.querySelector('meta[name="twitter:description"]').setAttribute('content', ogDescription);
-
-            } catch (error) {
-                console.error("Error fetching or displaying note:", error);
-            }
-        }
-
-        // Fetch the note when the page loads
-        window.onload = fetchAndDisplayNote;
-    </script>
+    // Fetch the note when the page loads
+    window.onload = fetchAndDisplayNote;
+</script>
 </body>
 </html>
