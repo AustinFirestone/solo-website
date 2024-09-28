@@ -1,179 +1,287 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic Meta Tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shared Note</title>
+    <title>Solo - Shared Note</title>
+    
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="Shared Note from Solo" />
+    <meta property="og:description" content="Snapshot of the note will appear here." />
+    <meta property="og:url" content="https://solomonnote.com/sharedNote?id=NOTE_ID" />
+    <meta property="og:image" content="https://solomonnote.com/assets/meta.jpg" />
+    <meta property="og:type" content="article" />
+
+    <!-- Twitter Card Metadata -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Shared Note from Solo" />
+    <meta name="twitter:description" content="Snapshot of the note will appear here." />
+    <meta name="twitter:url" content="https://solomonnote.com/sharedNote?id=NOTE_ID" />
+    <meta name="twitter:image" content="https://solomonnote.com/assets/meta.jpg" />
+
+    <!-- Fonts and Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* Root color variables */
+        :root {
+            --primary-color: rgba(0, 0, 0, 0.8);
+            --secondary-color: rgba(0, 0, 0, 0.8);
+            --slightly-lighter-black: #1c1c1c;
+            --glow-color: rgba(255, 255, 255, 0.6);
+            --accent-color: #d8d8de; /* You can adjust this to match your accent color */
+        }
+
+        /* General body styles */
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f4f6f8;
             margin: 0;
-            padding: 20px;
-            color: #333;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--secondary-color);
+            color: #fff;
         }
 
-        h1, h2, p {
-            margin: 0 0 10px;
-        }
-
+        /* Header Styles */
         header {
-            text-align: center;
-            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: black;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
 
-        header h1 {
+        /* Solo Logo */
+        .logo {
             font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+            text-shadow: 0 0 10px var(--glow-color);
+            animation: glow 1.5s infinite alternate;
+        }
+
+        .logo:hover {
+            color: var(--accent-color);
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 10px var(--glow-color);
+            }
+            100% {
+                text-shadow: 0 0 20px var(--glow-color);
+            }
+        }
+
+        /* Main Content Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .note-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .note-title {
+            font-size: 3rem;
             font-weight: bold;
-            color: #007BFF;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--glow-color);
         }
 
-        header p {
-            font-size: 1rem;
-            color: #888;
+        .note-date {
+            font-size: 1.2rem;
+            color: #ccc;
         }
 
-        section {
-            background-color: #fff;
-            border-radius: 12px;
-            padding: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        /* Summary Sections */
+        .summary-section {
+            background-color: var(--slightly-lighter-black);
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .summary-section h2 {
+            font-size: 2rem;
             margin-bottom: 20px;
+            color: var(--accent-color);
         }
 
-        h2 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #007BFF;
+        .summary-section p,
+        .summary-section ul {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #ddd;
         }
 
-        p {
-            font-size: 1rem;
-            line-height: 1.5;
-            color: #555;
-        }
-
-        ul {
+        .summary-section ul {
             list-style-type: disc;
             margin-left: 20px;
         }
 
-        ul li {
-            margin-bottom: 5px;
+        /* Download App Section */
+        .app-promo {
+            text-align: center;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-top: 60px;
+            margin-bottom: 40px;
         }
 
         .download-app {
             display: inline-block;
-            background-color: #007BFF;
+            background-color: var(--accent-color);
             color: white;
-            padding: 10px 20px;
+            padding: 15px 30px;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 30px;
             font-size: 1.2rem;
-            text-align: center;
             margin-top: 20px;
-            display: block;
-            text-align: center;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .download-app:hover {
             background-color: #0056b3;
+            box-shadow: 0 0 20px var(--accent-color);
         }
 
-        .app-promo {
+        /* Footer */
+        footer {
+            padding: 40px 20px;
+            background-color: var(--slightly-lighter-black);
+            color: white;
             text-align: center;
-            font-size: 1.1rem;
-            color: #333;
-            margin-top: 20px;
+            font-size: 0.9rem;
         }
 
+        footer a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .note-title {
+                font-size: 2.5rem;
+            }
+
+            .summary-section h2 {
+                font-size: 1.5rem;
+            }
+
+            .summary-section p,
+            .summary-section ul {
+                font-size: 1rem;
+            }
+
+            .app-promo {
+                font-size: 1.2rem;
+            }
+
+            .download-app {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+        }
     </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <a href="https://solomonnote.com" class="logo">Solo</a>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Note Header -->
+        <div class="note-header">
+            <h1 class="note-title" id="note-title">Note Title</h1>
+            <p class="note-date" id="note-date">Note Date</p>
+        </div>
+
+        <!-- Summary Sections -->
+        <div class="summary-section">
+            <h2>Snapshot</h2>
+            <p id="note-snapshot">Loading snapshot...</p>
+        </div>
+
+        <div class="summary-section">
+            <h2>Transcript Summary</h2>
+            <p id="transcript-summary">Loading transcript summary...</p>
+        </div>
+
+        <div class="summary-section">
+            <h2>Main Topics</h2>
+            <ul id="main-topics">
+                <!-- Main topics will be injected here -->
+            </ul>
+        </div>
+
+        <div class="summary-section">
+            <h2>Analogy</h2>
+            <p id="analogy">Loading analogy...</p>
+        </div>
+
+        <div class="summary-section">
+            <h2>Real-World Application</h2>
+            <p id="real-world-application">Loading real-world application...</p>
+        </div>
+
+        <div class="summary-section">
+            <h2>Points for Further Research</h2>
+            <ul id="points-for-research">
+                <!-- Points for further research will be injected here -->
+            </ul>
+        </div>
+
+        <!-- App Promotion -->
+        <div class="app-promo">
+            The Quiz, Flashcards, SmartReview, Transcript, and more for this note are available for free inside the app.
+        </div>
+        <div style="text-align: center;">
+            <a href="https://apps.apple.com" target="_blank">
+                <img src="assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Download on the App Store" style="width: 200px;">
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2024 Solomon Innovations LLC. All rights reserved.</p>
+        <p><a href="https://solomonnote.com">Back to Home</a></p>
+    </footer>
+
     <!-- CloudKit JS Configuration -->
     <script src="https://cdn.apple-cloudkit.com/ck/2/cloudkit.js"></script>
     <script>
-        // Replace 'YOUR_WEB_API_TOKEN' with your actual Web API Token
+        // Configure CloudKit
         CloudKit.configure({
             containers: [{
                 containerIdentifier: 'iCloud.sonarnote',
-                apiToken: 'YOUR_WEB_API_TOKEN', // Replace with your actual Web API Token
-                environment: 'production' // Change to 'development' if needed
+                apiTokenAuth: {
+                    apiToken: 'd6f5f5e31a5b36a7e42448210c0048dc3234d153c008ae2633e34e12bd28dccb', // Replace with your actual Web API Token
+                    persist: true
+                },
+                environment: 'development'
             }]
         });
 
         // Initialize CloudKit
         const container = CloudKit.getDefaultContainer();
         const publicDB = container.publicCloudDatabase;
-
-        async function fetchNote(recordID) {
-            try {
-                const response = await publicDB.fetchRecord({ recordName: recordID });
-                const record = response.records[0];
-                return record;
-            } catch (error) {
-                console.error("Error fetching note:", error);
-                return null;
-            }
-        }
-
-        // Function to populate the HTML with fetched note data
-        async function populateNote() {
-            const recordID = getParameterByName('id');
-            if (!recordID) {
-                console.error("No record ID found in URL.");
-                return;
-            }
-
-            const record = await fetchNote(recordID);
-            if (!record) {
-                console.error("Failed to fetch note record.");
-                return;
-            }
-
-            // Extract fields from the record
-            const title = record['title'] || 'No Title';
-            const date = record['date'] ? new Date(record['date'].seconds * 1000) : null;
-            const content = record['content'] || '';
-
-            // Set title and date
-            document.getElementById('note-title').innerText = title;
-
-            if (date) {
-                const formattedDate = date.toLocaleDateString();
-                document.getElementById('note-date').innerText = formattedDate;
-            } else {
-                document.getElementById('note-date').innerText = 'Unknown Date';
-            }
-
-            // Parse and display content
-            try {
-                const jsonContent = JSON.parse(content);
-
-                // Assuming content is structured as shown below
-                document.getElementById('note-snapshot').innerText = jsonContent.snapshot || 'No Snapshot';
-                document.getElementById('transcript-summary').innerText = jsonContent.transcriptSummary || 'No Transcript Summary';
-                
-                // Populate main topics
-                const mainTopicsList = document.getElementById('main-topics');
-                jsonContent.mainTopics.forEach(topic => {
-                    const listItem = document.createElement('li');
-                    listItem.innerText = topic;
-                    mainTopicsList.appendChild(listItem);
-                });
-
-                document.getElementById('analogy').innerText = jsonContent.analogy || 'No Analogy';
-                document.getElementById('real-world-application').innerText = jsonContent.realWorldApplication || 'No Real-World Application';
-
-                // Populate points for further research
-                const pointsList = document.getElementById('points-for-research');
-                jsonContent.pointsForFurtherResearch.forEach(point => {
-                    const listItem = document.createElement('li');
-                    listItem.innerText = point;
-                    pointsList.appendChild(listItem);
-                });
-            } catch (error) {
-                console.error("Error parsing content JSON:", error);
-            }
-        }
 
         // Function to parse URL parameters
         function getParameterByName(name) {
@@ -186,54 +294,81 @@
             return decodeURIComponent(results[2].replace(/\+/g, ' '));
         }
 
-        // Populate the note when the page loads
-        window.onload = populateNote;
+        // Fetch and display the note data
+        async function fetchAndDisplayNote() {
+            const recordID = getParameterByName('id');
+            if (!recordID) {
+                console.error("No record ID found in URL.");
+                return;
+            }
+
+            try {
+                const response = await publicDB.fetchRecords(recordID);
+                const record = response.records[0];
+
+                if (!record) {
+                    console.error("Record not found.");
+                    return;
+                }
+
+                // Extract note data
+                const title = record.fields.title.value || 'Untitled';
+                const date = record.fields.date.value ? new Date(record.fields.date.value) : null;
+                const summaryContent = record.fields.summaryContent.value || '{}'; // Assuming summary is stored as JSON string
+
+                // Update Open Graph and Twitter metadata dynamically
+                document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+                document.querySelector('meta[property="og:url"]').setAttribute('content', window.location.href);
+                document.querySelector('meta[name="twitter:title"]').setAttribute('content', title);
+                document.querySelector('meta[name="twitter:url"]').setAttribute('content', window.location.href);
+
+                // Parse summary content
+                const summaryData = JSON.parse(summaryContent);
+
+                // Update the page with note data
+                document.getElementById('note-title').innerText = title;
+                document.getElementById('note-date').innerText = date ? date.toLocaleDateString() : 'Unknown Date';
+                document.getElementById('note-snapshot').innerText = summaryData.snapshot || 'No Snapshot Available';
+                document.getElementById('transcript-summary').innerText = summaryData.transcriptSummary || 'No Transcript Summary Available';
+                document.getElementById('analogy').innerText = summaryData.analogy || 'No Analogy Available';
+                document.getElementById('real-world-application').innerText = summaryData.realWorldApplication || 'No Real-World Application Available';
+
+                // Populate main topics
+                const mainTopicsList = document.getElementById('main-topics');
+                if (summaryData.mainTopics && summaryData.mainTopics.length > 0) {
+                    summaryData.mainTopics.forEach(topic => {
+                        const listItem = document.createElement('li');
+                        listItem.innerText = topic;
+                        mainTopicsList.appendChild(listItem);
+                    });
+                } else {
+                    mainTopicsList.innerHTML = '<li>No Main Topics Available</li>';
+                }
+
+                // Populate points for further research
+                const pointsList = document.getElementById('points-for-research');
+                if (summaryData.pointsForFurtherResearch && summaryData.pointsForFurtherResearch.length > 0) {
+                    summaryData.pointsForFurtherResearch.forEach(point => {
+                        const listItem = document.createElement('li');
+                        listItem.innerText = point;
+                        pointsList.appendChild(listItem);
+                    });
+                } else {
+                    pointsList.innerHTML = '<li>No Points for Further Research Available</li>';
+                }
+
+                // Update Open Graph and Twitter description
+                const ogDescription = summaryData.snapshot || 'Snapshot of the note.';
+                document.querySelector('meta[property="og:description"]').setAttribute('content', ogDescription);
+                document.querySelector('meta[name="twitter:description"]').setAttribute('content', ogDescription);
+
+            } catch (error) {
+                console.error("Error fetching or displaying note:", error);
+            }
+        }
+
+        // Fetch the note when the page loads
+        window.onload = fetchAndDisplayNote;
     </script>
-</head>
-<body>
-    <header>
-        <h1 id="note-title">No Title</h1>
-        <p id="note-date">No Date</p>
-    </header>
-
-    <section>
-        <h2>Snapshot</h2>
-        <p id="note-snapshot">No Snapshot</p>
-    </section>
-
-    <section>
-        <h2>Transcript Summary</h2>
-        <p id="transcript-summary">No Transcript Summary</p>
-    </section>
-
-    <section>
-        <h2>Main Topics</h2>
-        <ul id="main-topics">
-            <!-- Main topics will be injected here -->
-        </ul>
-    </section>
-
-    <section>
-        <h2>Analogy</h2>
-        <p id="analogy">No Analogy</p>
-    </section>
-
-    <section>
-        <h2>Real-World Application</h2>
-        <p id="real-world-application">No Real-World Application</p>
-    </section>
-
-    <section>
-        <h2>Points for Further Research</h2>
-        <ul id="points-for-research">
-            <!-- Points for further research will be injected here -->
-        </ul>
-    </section>
-
-    <div class="app-promo">
-        The Quiz, Flashcards, and Transcript for this note are available for Free inside the app.
-    </div>
-
-    <a href="https://apps.apple.com/app/idYOUR_APP_ID" class="download-app">Install Solo</a>
 </body>
 </html>
