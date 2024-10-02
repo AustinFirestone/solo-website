@@ -2,9 +2,10 @@
 <html lang="en">
 
 <head>
+    <!-- Meta Tags and Styles -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Elevate your learning with Solo. Seamless audio notes, flashcards, quizzes, and more in a beautifully designed app.">
+    <meta description="Elevate your learning with Solo. Seamless audio notes, flashcards, quizzes, and more in a beautifully designed app.">
     <title>Solo - Elevate Your Learning</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -27,8 +28,75 @@
             color: #fff;
         }
 
+        /* Header Styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: black;
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Solo Logo */
+        .logo img {
+            width: 120px;
+            height: auto;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            cursor: pointer;
+            width: 30px;
+            height: 25px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .hamburger span {
+            background-color: white;
+            height: 4px;
+            width: 100%;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        /* Dropdown Menu Styles */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background-color: black;
+            border-radius: 10px;
+            padding: 10px;
+            text-align: right;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown a:hover {
+            background-color: var(--slightly-lighter-black);
+        }
+
+        /* Show dropdown when menu is active */
+        .header.active .dropdown {
+            display: block;
+        }
+
         /* Full-Screen Hero Banner */
-        header {
+        header.hero {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -66,11 +134,11 @@
             overflow: hidden;
             font-size: 1.7rem;
             font-weight: 700;
-            vertical-align: bottom; /* Align with surrounding text */
-            width: 150px; /* Set width to prevent shifting */
-            text-align: left; /* Align text left within container */
-            margin-left: 5px; /* Adjust this value to shift left */
-            transform: translateY(2px); /* Adjust this value to shift down */
+            vertical-align: bottom;
+            width: 150px;
+            text-align: left;
+            margin-left: 5px;
+            transform: translateY(2px);
         }
 
         .typing-text {
@@ -78,12 +146,12 @@
             border-right: 2px solid white;
             white-space: nowrap;
             overflow: hidden;
-            vertical-align: middle; /* Align the cursor with text */
+            vertical-align: middle;
         }
 
-        /* Prevent layout shifting by defining the container size */
+        /* Prevent layout shifting */
         .typing-text::before {
-            content: 'notes'; /* The longest word to prevent layout shifting */
+            content: 'notes';
             visibility: hidden;
             display: inline-block;
             width: 0;
@@ -121,16 +189,16 @@
             align-items: center;
             justify-content: space-between;
             padding: 100px;
-            background-color: black; /* Entire section background black */
+            background-color: black;
         }
 
         .split-section .left {
             width: 50%;
             padding: 40px;
-            background-color: var(--slightly-lighter-black); /* Slightly lighter black for contrast */
-            color: white; /* White text for better contrast */
-            border-radius: 10px; /* Optional: Rounded corners */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Slight shadow */
+            background-color: var(--slightly-lighter-black);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         .split-section .left h2 {
@@ -149,9 +217,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: black; /* Solid black for the video background */
+            background-color: black;
             padding: 30px;
-            border-radius: 10px; /* Optional: Rounded corners */
+            border-radius: 10px;
         }
 
         .split-section .right video {
@@ -165,7 +233,7 @@
         /* Features Section */
         .features-section {
             padding: 80px 20px;
-            background-color: black; /* Background for the features section */
+            background-color: black;
             position: relative;
         }
 
@@ -179,8 +247,8 @@
 
         .feature-item {
             padding: 40px;
-            background-color: var(--slightly-lighter-black); /* Same as Learn in the Moment */
-            margin: 50px 0; /* Add vertical space */
+            background-color: var(--slightly-lighter-black);
+            margin: 50px 0;
             border-radius: 10px;
             color: white;
             width: 60%;
@@ -195,11 +263,11 @@
         }
 
         .feature-item:nth-child(odd) {
-            margin-left: 20%; /* Stagger the odd-numbered feature boxes */
+            margin-left: 20%;
         }
 
         .feature-item:nth-child(even) {
-            margin-right: 20%; /* Stagger the even-numbered feature boxes */
+            margin-right: 20%;
         }
 
         /* Footer */
@@ -225,20 +293,44 @@
             text-align: center;
             margin: 50px 0;
         }
-        /* Add responsive media query for mobile */
-        /* Add responsive media query for mobile */
-        
+
+        /* Responsive styles (if any) */
     </style>
 </head>
 
 <body>
 
+    <!-- Header with Logo and Dropdown -->
+    <header class="header">
+        <!-- Logo on the Left -->
+        <div class="logo">
+            <a href="https://solomonnote.com">
+                <img src="assets/Solo_Logo_2.png" alt="Solo Logo">
+            </a>
+        </div>
+
+        <!-- Hamburger Menu Icon -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Dropdown Menu -->
+        <div class="dropdown">
+            <a href="https://solomonnote.com">Home</a>
+            <a href="https://solomonnote.com">About</a>
+            <a href="https://solomonnote.com">Contact</a>
+        </div>
+    </header>
+
     <!-- Main Header Section (Hero) -->
-    <header>
+    <header class="hero">
         <!-- Hero Content -->
         <div class="hero-content">
             <h1>Meet Solo</h1>
-            <p>Elevate your learning with instant audio <span class="animated-text-container"><strong class="typing-text"></strong></span></p>                <img src="assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Download on the App Store" style="width: 200px; margin-top: 30px;">
+            <p>Elevate your learning with instant audio <span class="animated-text-container"><strong class="typing-text"></strong></span></p>
+            <a href="https://apps.apple.com">
+                <img src="assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Download on the App Store" style="width: 200px; margin-top: 30px;">
             </a>
         </div>
     </header>
@@ -286,52 +378,56 @@
         </div>
     </section>
 
-
     <!-- Footer -->
     <footer>
         <p>© 2024 SolomonAI Inc. Solo is a registered trademark of SolomonAI Inc. All rights reserved.</p>
         <p><a href="https://apps.apple.com">Download for Free on the App Store</a></p>
     </footer>
 
+    <!-- Scripts -->
+    <script>
+        // Typing Animation for the Words
+        const words = ["notes", "flashcards", "quizzes"];
+        let i = 0;
+        let typingDelay = 75;
+        let eraseDelay = 50;
+        let delayBetweenWords = 2000;
+        let textElement = document.querySelector(".typing-text");
+
+        function typeWord() {
+            let currentWord = words[i];
+            let letterIndex = 0;
+            let typeInterval = setInterval(() => {
+                textElement.textContent = currentWord.slice(0, ++letterIndex);
+                if (letterIndex === currentWord.length) {
+                    clearInterval(typeInterval);
+                    setTimeout(eraseWord, delayBetweenWords);
+                }
+            }, typingDelay);
+        }
+
+        function eraseWord() {
+            let currentWord = textElement.textContent;
+            let letterIndex = currentWord.length - 1;
+            let eraseInterval = setInterval(() => {
+                textElement.textContent = currentWord.slice(0, letterIndex--);
+                if (letterIndex < 0) {
+                    clearInterval(eraseInterval);
+                    i = (i + 1) % words.length;
+                    setTimeout(typeWord, eraseDelay);
+                }
+            }, eraseDelay);
+        }
+
+        function toggleMenu() {
+            document.querySelector('.header').classList.toggle('active');
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            setTimeout(typeWord, delayBetweenWords);
+        });
+    </script>
+
 </body>
-
-<script>
-    // Typing Animation for the Words
-    const words = ["notes", "flashcards", "quizzes"];
-    let i = 0;
-    let typingDelay = 75;
-    let eraseDelay = 50;
-    let delayBetweenWords = 2000;
-    let textElement = document.querySelector(".typing-text");
-
-    function typeWord() {
-        let currentWord = words[i];
-        let letterIndex = 0;
-        let typeInterval = setInterval(() => {
-            textElement.textContent = currentWord.slice(0, ++letterIndex);
-            if (letterIndex === currentWord.length) {
-                clearInterval(typeInterval);
-                setTimeout(eraseWord, delayBetweenWords);
-            }
-        }, typingDelay);
-    }
-
-    function eraseWord() {
-        let currentWord = textElement.textContent;
-        let letterIndex = currentWord.length - 1;
-        let eraseInterval = setInterval(() => {
-            textElement.textContent = currentWord.slice(0, letterIndex--);
-            if (letterIndex < 0) {
-                clearInterval(eraseInterval);
-                i = (i + 1) % words.length;
-                setTimeout(typeWord, eraseDelay);
-            }
-        }, eraseDelay);
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-        setTimeout(typeWord, delayBetweenWords);
-    });
-</script>
 
 </html>
