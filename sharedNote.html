@@ -46,7 +46,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            padding: 15px 20px; /* Adjusted padding for better mobile spacing */
             background-color: black;
             position: sticky;
             top: 0;
@@ -54,20 +54,32 @@
         }
 
         /* Solo Logo */
+        .logo img {
+            width: 100%;
+            max-width: 120px; /* Default size for larger screens */
+            height: auto;
+            transition: max-width 0.3s ease;
+        }
+
+        /* Remove Glow Effect and Animation from Logo */
         .logo {
+            /* Removed text-shadow and animation properties */
             font-size: 2rem;
             font-weight: 700;
             color: #fff;
             text-decoration: none;
             margin-left: 20px;
-            text-shadow: 0 0 10px var(--glow-color);
-            animation: glow 1.5s infinite alternate;
+            /* text-shadow: 0 0 10px var(--glow-color); */
+            /* animation: glow 1.5s infinite alternate; */
         }
 
         .logo:hover {
             color: var(--accent-color);
+            /* Removed glow on hover */
         }
 
+        /* Keyframes for Glow Effect (No longer used) */
+        /*
         @keyframes glow {
             0% {
                 text-shadow: 0 0 10px var(--glow-color);
@@ -76,6 +88,7 @@
                 text-shadow: 0 0 20px var(--glow-color);
             }
         }
+        */
 
         /* Main Content Styles */
         .container {
@@ -137,21 +150,18 @@
             margin-bottom: 40px;
         }
 
+        /* Remove Button Styling from Download Link */
         .download-app {
+            /* Removed background-color, padding, border-radius, font-size */
             display: inline-block;
-            background-color: var(--accent-color);
-            color: white;
-            padding: 15px 30px;
+            /* background-color: var(--accent-color); */
+            /* color: white; */
+            /* padding: 15px 30px; */
             text-decoration: none;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            margin-top: 20px;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .download-app:hover {
-            background-color: #0056b3;
-            box-shadow: 0 0 20px var(--accent-color);
+            /* border-radius: 30px; */
+            /* font-size: 1.2rem; */
+            /* margin-top: 20px; */
+            /* transition: background-color 0.3s ease, box-shadow 0.3s ease; */
         }
 
         /* Footer */
@@ -174,6 +184,10 @@
 
         /* Responsive Styles */
         @media (max-width: 768px) {
+            .logo img {
+                max-width: 40px; /* Reduce logo size on mobile */
+            }
+
             .note-title {
                 font-size: 2.5rem;
             }
@@ -191,9 +205,20 @@
                 font-size: 1.2rem;
             }
 
-            .download-app {
-                font-size: 1rem;
-                padding: 12px 25px;
+            /* Adjust download app image size for mobile */
+            .download-app img {
+                width: 150px; /* Increase Apple Store logo size */
+            }
+        }
+
+        @media (min-width: 769px) {
+            .logo img {
+                max-width: 120px; /* Restore larger logo size on desktops */
+            }
+
+            /* Adjust download app image size for larger screens */
+            .download-app img {
+                width: 200px; /* Larger size for desktop */
             }
         }
     </style>
@@ -201,8 +226,8 @@
 <body>
     <!-- Header -->
     <header>
-        <a href="https://soloinnovations.com" class="logo">
-            <img src="assets/Solo_Logo_Plain.png" alt="Solo Logo" style="width: 150px; height: auto;">
+        <a href="https://solomonnote.com" class="logo">
+            <img src="assets/Solo_Logo_Plain.png" alt="Solo Logo">
         </a>
     </header>
 
@@ -254,8 +279,9 @@
             The Quiz, Flashcards, SmartReview, Transcript, and more for this note are available for free inside the app.
         </div>
         <div style="text-align: center;">
-            <a href="https://apps.apple.com" target="_blank">
-                <img src="assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Download on the App Store" style="width: 200px;">
+            <a href="https://apps.apple.com" target="_blank" class="download-app">
+                <!-- Increased the size of the Apple Store logo by adjusting width via CSS -->
+                <img src="assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Download on the App Store">
             </a>
         </div>
     </div>
@@ -263,128 +289,129 @@
     <!-- Footer -->
     <footer>
         <p>© 2024 Solomon Innovations LLC. All rights reserved.</p>
-        <p><a href="https://soloinnovations.com">Back to Home</a></p>
+        <p><a href="https://solomonnote.com">Back to Home</a></p>
     </footer>
 
+    <!-- Scripts -->
     <script src="https://cdn.apple-cloudkit.com/ck/2/cloudkit.js"></script>
-<script>
-    // Configure CloudKit
-    CloudKit.configure({
-        containers: [{
-            containerIdentifier: 'iCloud.solocloud', // Your actual container ID
-            apiTokenAuth: {
-                apiToken: 'c311baec20b95201db27775c61941d6153adbb25b66c9d71c70e0733f2ecbba2', // Your actual Web API token test:0523a293354c67e858688f21da29ab3ec869584128c6462e5eda3670429ffa4b
-                persist: true
-            },
-            environment: 'production' // or 'production' as needed
-        }]
-    });
+    <script>
+        // Configure CloudKit
+        CloudKit.configure({
+            containers: [{
+                containerIdentifier: 'iCloud.solocloud', // Your actual container ID
+                apiTokenAuth: {
+                    apiToken: 'c311baec20b95201db27775c61941d6153adbb25b66c9d71c70e0733f2ecbba2', // Your actual Web API token
+                    persist: true
+                },
+                environment: 'production' // or 'production' as needed
+            }]
+        });
 
-    // Get the default container and public database
-    const container = CloudKit.getDefaultContainer();
-    const publicDB = container.publicCloudDatabase;
+        // Get the default container and public database
+        const container = CloudKit.getDefaultContainer();
+        const publicDB = container.publicCloudDatabase;
 
-    // Function to extract the record ID from the URL
-    function getRecordIDFromURL() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const recordID = urlParams.get('id');
-        return recordID;
-    }
-
-    // Function to fetch and display the note
-    function fetchAndDisplayNote() {
-        console.log('Starting fetchAndDisplayNote function');
-
-        const recordID = getRecordIDFromURL();
-        console.log('Extracted RecordID:', recordID);
-
-        if (!recordID) {
-            console.error('No record ID found in the URL');
-            return;
+        // Function to extract the record ID from the URL
+        function getRecordIDFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const recordID = urlParams.get('id');
+            return recordID;
         }
 
-        publicDB.fetchRecords(recordID)
-            .then(function(response) {
-                console.log('FetchRecord response:', response);
+        // Function to fetch and display the note
+        function fetchAndDisplayNote() {
+            console.log('Starting fetchAndDisplayNote function');
 
-                if (response.hasErrors) {
-                    console.error('Error fetching record:', response.errors[0]);
-                    return;
-                }
+            const recordID = getRecordIDFromURL();
+            console.log('Extracted RecordID:', recordID);
 
-                const record = response.records[0];
-                if (!record) {
-                    console.error('No record found.');
-                    return;
-                }
+            if (!recordID) {
+                console.error('No record ID found in the URL');
+                return;
+            }
 
-                console.log('Fetched record:', record);
+            publicDB.fetchRecords(recordID)
+                .then(function(response) {
+                    console.log('FetchRecord response:', response);
 
-                // Access the CKAsset
-                const noteDataAsset = record.fields.noteData;
-                if (!noteDataAsset || !noteDataAsset.value || !noteDataAsset.value.downloadURL) {
-                    console.error('No noteData asset found in the record.');
-                    return;
-                }
+                    if (response.hasErrors) {
+                        console.error('Error fetching record:', response.errors[0]);
+                        return;
+                    }
 
-                // Fetch the JSON data from the asset's download URL
-                fetch(noteDataAsset.value.downloadURL)
-                    .then(response => response.json())
-                    .then(noteData => {
-                        console.log('NoteData:', noteData);
+                    const record = response.records[0];
+                    if (!record) {
+                        console.error('No record found.');
+                        return;
+                    }
 
-                        // Now you can access all fields from noteData
-                        const title = noteData.title || 'Untitled';
-                        const date = new Date(noteData.date).toLocaleDateString() || 'Unknown Date';
-                        const snapshot = noteData.summary?.snapshot || 'No Snapshot Available';
-                        const transcriptSummary = noteData.summary?.transcriptSummary || 'No Transcript Summary Available';
-                        const mainTopics = noteData.summary?.mainTopics || [];
-                        const analogy = noteData.summary?.analogy || 'No Analogy Available';
-                        const realWorldApplication = noteData.summary?.realWorldApplication || 'No Real-World Application Available';
-                        const pointsForResearch = noteData.summary?.pointsForFurtherResearch || [];
+                    console.log('Fetched record:', record);
 
-                        // Update webpage elements
-                        document.getElementById('note-title').innerText = title;
-                        document.getElementById('note-date').innerText = date;
-                        document.getElementById('note-snapshot').innerText = snapshot;
-                        document.getElementById('transcript-summary').innerText = transcriptSummary;
+                    // Access the CKAsset
+                    const noteDataAsset = record.fields.noteData;
+                    if (!noteDataAsset || !noteDataAsset.value || !noteDataAsset.value.downloadURL) {
+                        console.error('No noteData asset found in the record.');
+                        return;
+                    }
 
-                        // Main Topics
-                        const mainTopicsElement = document.getElementById('main-topics');
-                        mainTopicsElement.innerHTML = ''; // Clear existing content
-                        mainTopics.forEach(topic => {
-                            const li = document.createElement('li');
-                            li.innerText = topic;
-                            mainTopicsElement.appendChild(li);
+                    // Fetch the JSON data from the asset's download URL
+                    fetch(noteDataAsset.value.downloadURL)
+                        .then(response => response.json())
+                        .then(noteData => {
+                            console.log('NoteData:', noteData);
+
+                            // Now you can access all fields from noteData
+                            const title = noteData.title || 'Untitled';
+                            const date = new Date(noteData.date).toLocaleDateString() || 'Unknown Date';
+                            const snapshot = noteData.summary?.snapshot || 'No Snapshot Available';
+                            const transcriptSummary = noteData.summary?.transcriptSummary || 'No Transcript Summary Available';
+                            const mainTopics = noteData.summary?.mainTopics || [];
+                            const analogy = noteData.summary?.analogy || 'No Analogy Available';
+                            const realWorldApplication = noteData.summary?.realWorldApplication || 'No Real-World Application Available';
+                            const pointsForResearch = noteData.summary?.pointsForFurtherResearch || [];
+
+                            // Update webpage elements
+                            document.getElementById('note-title').innerText = title;
+                            document.getElementById('note-date').innerText = date;
+                            document.getElementById('note-snapshot').innerText = snapshot;
+                            document.getElementById('transcript-summary').innerText = transcriptSummary;
+
+                            // Main Topics
+                            const mainTopicsElement = document.getElementById('main-topics');
+                            mainTopicsElement.innerHTML = ''; // Clear existing content
+                            mainTopics.forEach(topic => {
+                                const li = document.createElement('li');
+                                li.innerText = topic;
+                                mainTopicsElement.appendChild(li);
+                            });
+
+                            // Analogy
+                            document.getElementById('analogy').innerText = analogy;
+
+                            // Real-World Application
+                            document.getElementById('real-world-application').innerText = realWorldApplication;
+
+                            // Points for Further Research
+                            const researchPointsElement = document.getElementById('points-for-research');
+                            researchPointsElement.innerHTML = ''; // Clear existing content
+                            pointsForResearch.forEach(point => {
+                                const li = document.createElement('li');
+                                li.innerText = point;
+                                researchPointsElement.appendChild(li);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error fetching JSON data from CKAsset:', error);
                         });
 
-                        // Analogy
-                        document.getElementById('analogy').innerText = analogy;
+                })
+                .catch(function(error) {
+                    console.error('Fetch failed with error:', error);
+                });
+        }
 
-                        // Real-World Application
-                        document.getElementById('real-world-application').innerText = realWorldApplication;
-
-                        // Points for Further Research
-                        const researchPointsElement = document.getElementById('points-for-research');
-                        researchPointsElement.innerHTML = ''; // Clear existing content
-                        pointsForResearch.forEach(point => {
-                            const li = document.createElement('li');
-                            li.innerText = point;
-                            researchPointsElement.appendChild(li);
-                        });
-                    })
-                    .catch(error => {
-                        console.error('Error fetching JSON data from CKAsset:', error);
-                    });
-
-            })
-            .catch(function(error) {
-                console.error('Fetch failed with error:', error);
-            });
-    }
-
-    // Fetch the note when the page loads
-    window.onload = fetchAndDisplayNote;
-</script>
+        // Fetch the note when the page loads
+        window.onload = fetchAndDisplayNote;
+    </script>
 </body>
 </html>

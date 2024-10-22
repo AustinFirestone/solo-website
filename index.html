@@ -21,9 +21,10 @@
     <meta name="twitter:description" content="Snapshot of the note will appear here." />
     <meta name="twitter:url" content="https://soloinnovations.com/" />
     <meta name="twitter:image" content="https://soloinnovations.com/assets/meta.jpg" />
+
+    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-    
     <style>
         /* Root color variables */
         :root {
@@ -33,6 +34,7 @@
             --glow-color: rgba(255, 255, 255, 0.6);
             --shadow-color: rgba(0, 0, 0, 0.8);
             --slightly-lighter-black: #1c1c1c;
+            --accent-color: #d8d8de;
         }
 
         /* General body styles */
@@ -50,7 +52,7 @@
             justify-content: space-between;
             align-items: center;
             background-color: black;
-            padding: 20px;
+            padding: 15px 20px;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -58,16 +60,15 @@
 
         /* Solo Logo */
         .logo img {
-            width: 120px;
+            width: 100px;
             height: auto;
         }
 
         /* Hamburger Menu */
         .hamburger {
             cursor: pointer;
-            width: 30px;
-            height: 25px;
-            position: relative;
+            width: 25px;
+            height: 20px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -75,7 +76,7 @@
 
         .hamburger span {
             background-color: white;
-            height: 4px;
+            height: 3px;
             width: 100%;
             border-radius: 5px;
             transition: 0.3s;
@@ -91,6 +92,7 @@
             border-radius: 10px;
             padding: 10px;
             text-align: right;
+            width: 150px;
         }
 
         .dropdown a {
@@ -119,13 +121,14 @@
             align-items: center;
             text-align: center;
             background: linear-gradient(120deg, black, gray);
-            height: 100vh;
-            color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+            box-sizing: border-box;
         }
 
         /* Glowing "Meet Solo" */
         .hero-content h1 {
-            font-size: 4.5rem;
+            font-size: 2.5rem;
             margin: 0;
             font-weight: 700;
             text-shadow: 0 0 20px var(--glow-color), 0 0 10px var(--shadow-color);
@@ -137,6 +140,7 @@
             0% {
                 text-shadow: 0 0 20px var(--glow-color), 0 0 10px var(--shadow-color);
             }
+
             100% {
                 text-shadow: 0 0 30px var(--glow-color), 0 0 15px var(--shadow-color);
             }
@@ -150,11 +154,11 @@
             overflow: hidden;
             font-size: 1.7rem;
             font-weight: 700;
-            vertical-align: bottom; /* Align with surrounding text */
-            width: 150px; /* Set width to prevent shifting */
-            text-align: left; /* Align text left within container */
-            margin-left: 5px; /* Adjust this value to shift left */
-            transform: translateY(2px); /* Adjust this value to shift down */
+            vertical-align: bottom;
+            width: 150px;
+            text-align: left;
+            margin-left: 5px;
+            transform: translateY(2px);
         }
 
         .typing-text {
@@ -162,94 +166,74 @@
             border-right: 2px solid white;
             white-space: nowrap;
             overflow: hidden;
-            vertical-align: middle; /* Align the cursor with text */
+            vertical-align: middle;
         }
 
         /* Prevent layout shifting by defining the container size */
         .typing-text::before {
-            content: 'notes'; /* The longest word to prevent layout shifting */
+            content: 'notes';
             visibility: hidden;
             display: inline-block;
             width: 0;
         }
 
         /* Style for the App Store button */
-        .app-store-button {
-            margin-top: 30px;
-            display: inline-block;
-            background-color: #000;
-            padding: 10px 20px;
-            color: white;
-            border-radius: 15px;
-            text-decoration: none;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .app-store-button:hover {
-            background-color: #333;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 60px rgba(255, 255, 255, 1), 0 0 90px rgba(255, 255, 255, 1);
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
         .app-store-button img {
-            width: 20px;
-            margin-right: 10px;
+            width: 100%;
+            max-width: 150px;
+            margin-top: 20px;
         }
 
         /* Split Screen Section */
         .split-section {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            padding: 10px;
-            background-color: black; /* Entire section background black */
+            justify-content: center;
+            padding: 20px;
+            background-color: black;
         }
 
-        .split-section .left {
-            width: 50%;
-            padding: 40px;
-            background-color: var(--slightly-lighter-black); /* Slightly lighter black for contrast */
-            color: white; /* White text for better contrast */
-            border-radius: 10px; /* Optional: Rounded corners */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Slight shadow */
-        }
-
-        .split-section .left h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
+        .split-section .left,
+        .split-section .right {
+            width: 100%;
+            padding: 20px;
+            background-color: var(--slightly-lighter-black);
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             margin-bottom: 20px;
         }
 
+        .split-section .left h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
         .split-section .left p {
-            font-size: 1.25rem;
+            font-size: 1rem;
             line-height: 1.6;
+            text-align: center;
         }
 
         .split-section .right {
-            width: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: black; /* Solid black for the video background */
-            padding: 0px;
-            border-radius: 10px; /* Optional: Rounded corners */
+            background-color: black;
+            padding: 0;
         }
 
         .split-section .right video {
-            max-width: 100%;
+            width: 100%;
             height: auto;
             object-fit: cover;
-            clip-path: inset(0% 1.5% 0% 1.8%);
-            transform: rotate(90deg);
+            border-radius: 10px;
         }
 
         /* Features Section */
         .features-section {
-            padding: 80px 20px;
-            background-color: black; /* Background for the features section */
+            padding: 40px 20px;
+            background-color: black;
             position: relative;
         }
 
@@ -262,33 +246,25 @@
         }
 
         .feature-item {
-            padding: 40px;
-            background-color: var(--slightly-lighter-black); /* Same as Learn in the Moment */
-            margin: 50px 0; /* Add vertical space */
+            padding: 20px;
+            background-color: var(--slightly-lighter-black);
+            margin: 20px 0;
             border-radius: 10px;
             color: white;
-            width: 60%;
+            width: 100%;
+            max-width: 400px;
             text-align: center;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
-            position: relative;
         }
 
         .feature-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .feature-item:nth-child(odd) {
-            margin-left: 20%; /* Stagger the odd-numbered feature boxes */
-        }
-
-        .feature-item:nth-child(even) {
-            margin-right: 20%; /* Stagger the even-numbered feature boxes */
+            transform: translateY(-5px);
         }
 
         /* Footer */
         footer {
-            padding: 40px 20px;
+            padding: 20px;
             background-color: var(--slightly-lighter-black);
             color: white;
             text-align: center;
@@ -304,103 +280,85 @@
             text-decoration: underline;
         }
 
-        /* New download button at the bottom */
-        .download-section {
-            text-align: center;
-            margin: 50px 0;
-        }
-
-        /* Add responsive media query for mobile */
-        @media (max-width: 768px) {
-            header.hero {
-                height: auto;
-                padding: 40px 20px; /* Increased padding for better spacing */
+        /* Responsive Styles for Larger Screens */
+        @media (min-width: 769px) {
+            /* Header */
+            .logo img {
+                width: 120px;
             }
 
+            /* Hero Section */
             .hero-content h1 {
-                font-size: 2.5rem;
-                margin-bottom: 20px; /* Ensure space below the title */
+                font-size: 4.5rem;
             }
 
-            /* Adjust the text layout in the hero */
             .hero-content p {
-                display: block;
-                line-height: 1.5;
-                font-size: 1.5rem;
-                margin-bottom: 10px;
-                text-align: center; /* Center the text */
+                font-size: 1.7rem;
             }
 
-            .app-store-button {
-                width: 150px;
-                padding: 8px 15px;
-                margin: 20px auto; /* Center the button */
+            .app-store-button img {
+                max-width: 200px;
             }
 
-            /* Stack the Learn in the Moment text and video on mobile */
+            /* Split Section */
             .split-section {
-                flex-direction: column;
-                padding: 40px 20px; /* Add padding for better spacing */
-                align-items: center; /* Center the content */
-                margin-bottom: -95px;
+                flex-direction: row;
+                padding: 40px 60px;
             }
 
             .split-section .left,
             .split-section .right {
-                width: 100%;
-                margin-bottom: 0px;
+                width: 48%;
+                margin: 1%;
             }
 
-            .split-section .left {
-                padding: 20px;
-                text-align: center;
-                background-color: black; /* Make the Learn in the Moment box black */
-                margin-bottom: -40px; /* Add spacing below the text */
+            .split-section .left h2 {
+                text-align: left;
             }
 
-            /* Move video down slightly and prevent the bottom from being cut off */
-            .split-section .right video {
-                width: 160%; /* Full width video in mobile */
-                margin-top: 0px; /* Space between text and video */
-                height: fit-content; /* Maintain the aspect ratio of the video */
-                max-width: 800px; /* Adjust this value to control the maximum size of the video */
-                transform: rotate();
-                object-fit: contain; /* Ensure no part of the video is cut off */
+            .split-section .left p {
+                text-align: left;
             }
 
+            /* Features Section */
             .features-grid {
-                width: 100%;
-                padding: 0px 0; /* Add padding for spacing */
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
             .feature-item {
-                width: 80%;
-                margin: 20px auto;
+                width: calc(33.333% - 40px);
+                margin: 20px;
             }
 
-            /* Center the bottom app download button */
-            .features-section a {
-                display: inline-block;
+            /* Dropdown Menu */
+            .dropdown {
                 width: 150px;
-                padding: 10px 0;
-                text-align: center;
-                margin: 20px auto; /* Center the button */
-                margin-left: 90px;
             }
 
-            footer {
-                padding: 20px;
+            /* Hamburger Menu Hidden on Large Screens */
+            .hamburger {
+                display: none;
             }
 
-            footer a {
-                font-size: 0.8rem;
+            .dropdown {
+                display: flex !important;
+                position: static;
+                flex-direction: row;
+                background-color: transparent;
+                padding: 0;
+                width: auto;
             }
 
-            /* Remove staggered layout on mobile */
-            .feature-item:nth-child(odd),
-            .feature-item:nth-child(even) {
-                margin-left: 0;
-                margin-right: 0;
+            .dropdown a {
+                padding: 0 15px;
+                color: #fff;
+            }
+
+            .dropdown a:hover {
+                background-color: transparent;
+                text-decoration: underline;
             }
         }
     </style>
@@ -421,14 +379,15 @@
         <div class="hamburger" onclick="toggleMenu()">
             <span></span>
             <span></span>
+            <span></span>
         </div>
 
         <!-- Dropdown Menu -->
-        <div class="dropdown">
+        <nav class="dropdown">
             <a href="https://soloinnovations.com">Home</a>
             <a href="https://soloinnovations.com">About</a>
             <a href="https://soloinnovations.com">Contact</a>
-        </div>
+        </nav>
     </header>
 
     <!-- Main Header Section (Hero) -->
@@ -436,9 +395,9 @@
         <!-- Hero Content -->
         <div class="hero-content">
             <h1>Meet Solo</h1>
-            <p>Elevate your learning <br> with instant audio <span class="animated-text-container"><strong class="typing-text"></strong></span></p>
-            <a href="https://apps.apple.com">
-                <img src="assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Download on the App Store" style="width: 200px; margin-top: 30px;">
+            <p>Elevate your learning with instant audio <span class="animated-text-container"><strong class="typing-text"></strong></span></p>
+            <a href="https://apps.apple.com" class="app-store-button">
+                <img src="assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Download on the App Store">
             </a>
         </div>
     </header>
@@ -453,7 +412,7 @@
 
         <!-- Right Content (iPhone Video) -->
         <div class="right">
-            <video src="assets/Solo_Promo_1.mp4" autoplay loop muted playsinline>
+            <video src="assets/demo.mp4" autoplay loop muted playsinline>
                 Your browser does not support the video tag.
             </video>
         </div>
@@ -480,8 +439,12 @@
                 <p>Test your knowledge with custom quizzes generated from your notes. Solo keeps you sharp by turning your content into interactive learning experiences.</p>
             </div>
 
-            <a href="https://apps.apple.com" target="_blank">
-                <img src="assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Download on the App Store" style="width: 200px; margin-top: 30px;">
+            <!-- Add more features as needed -->
+        </div>
+        <!-- App Store Button for Larger Screens -->
+        <div class="app-store-button" style="display: none;">
+            <a href="https://apps.apple.com">
+                <img src="assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Download on the App Store">
             </a>
         </div>
     </section>
@@ -531,20 +494,18 @@
             setTimeout(typeWord, delayBetweenWords);
         });
 
-        // JavaScript function to redirect to the desktop version if screen is larger than 768px
-        function redirectToDesktop() {
-            if (window.innerWidth > 768) {
-                window.location.href = "home-desktop.html"; // Full path to home-desktop.html
-            }
-        }
-
-        window.addEventListener("resize", redirectToDesktop);
-        document.addEventListener("DOMContentLoaded", redirectToDesktop);
-
         // Toggle Menu Function
         function toggleMenu() {
             document.querySelector('.header').classList.toggle('active');
         }
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', function (e) {
+            const header = document.querySelector('.header');
+            if (!header.contains(e.target)) {
+                header.classList.remove('active');
+            }
+        });
     </script>
 
 </body>
