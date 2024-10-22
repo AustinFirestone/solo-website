@@ -52,7 +52,7 @@
             justify-content: space-between;
             align-items: center;
             background-color: black;
-            padding: 15px 20px;
+            padding: 10px 15px;
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -60,7 +60,7 @@
 
         /* Solo Logo */
         .logo img {
-            width: 100px;
+            width: 80px;
             height: auto;
         }
 
@@ -87,12 +87,12 @@
             display: none;
             position: absolute;
             top: 60px;
-            right: 20px;
+            right: 15px;
             background-color: black;
             border-radius: 10px;
             padding: 10px;
             text-align: right;
-            width: 150px;
+            width: 140px;
         }
 
         .dropdown a {
@@ -121,28 +121,28 @@
             align-items: center;
             text-align: center;
             background: linear-gradient(120deg, black, gray);
-            min-height: 100vh;
-            padding: 40px 20px;
+            min-height: 60vh; /* Reduced height for mobile */
+            padding: 20px 10px;
             box-sizing: border-box;
         }
 
         /* Glowing "Meet Solo" */
         .hero-content h1 {
-            font-size: 2.5rem;
+            font-size: 2rem; /* Reduced font size for mobile */
             margin: 0;
             font-weight: 700;
-            text-shadow: 0 0 20px var(--glow-color), 0 0 10px var(--shadow-color);
+            text-shadow: 0 0 15px var(--glow-color), 0 0 10px var(--shadow-color);
             animation: glow 1.5s infinite alternate;
         }
 
         /* Glow Effect */
         @keyframes glow {
             0% {
-                text-shadow: 0 0 20px var(--glow-color), 0 0 10px var(--shadow-color);
+                text-shadow: 0 0 15px var(--glow-color), 0 0 10px var(--shadow-color);
             }
 
             100% {
-                text-shadow: 0 0 30px var(--glow-color), 0 0 15px var(--shadow-color);
+                text-shadow: 0 0 25px var(--glow-color), 0 0 15px var(--shadow-color);
             }
         }
 
@@ -152,10 +152,10 @@
             position: relative;
             white-space: nowrap;
             overflow: hidden;
-            font-size: 1.7rem;
+            font-size: 1.3rem; /* Adjusted for mobile */
             font-weight: 700;
             vertical-align: bottom;
-            width: 150px;
+            width: 120px;
             text-align: left;
             margin-left: 5px;
             transform: translateY(2px);
@@ -180,8 +180,8 @@
         /* Style for the App Store button */
         .app-store-button img {
             width: 100%;
-            max-width: 150px;
-            margin-top: 20px;
+            max-width: 120px;
+            margin-top: 15px;
         }
 
         /* Split Screen Section */
@@ -190,31 +190,31 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 15px;
             background-color: black;
         }
 
         .split-section .left,
         .split-section .right {
             width: 100%;
-            padding: 20px;
+            padding: 15px;
             background-color: var(--slightly-lighter-black);
             color: white;
             border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            margin-bottom: 20px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 15px;
         }
 
         .split-section .left h2 {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             text-align: center;
         }
 
         .split-section .left p {
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            line-height: 1.4;
             text-align: center;
         }
 
@@ -232,7 +232,7 @@
 
         /* Features Section */
         .features-section {
-            padding: 40px 20px;
+            padding: 30px 10px;
             background-color: black;
             position: relative;
         }
@@ -246,29 +246,29 @@
         }
 
         .feature-item {
-            padding: 20px;
+            padding: 15px;
             background-color: var(--slightly-lighter-black);
-            margin: 20px 0;
+            margin: 15px 0;
             border-radius: 10px;
             color: white;
-            width: 100%;
-            max-width: 400px;
+            width: 90%;
+            max-width: 350px;
             text-align: center;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
         }
 
         .feature-item:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
         }
 
         /* Footer */
         footer {
-            padding: 20px;
+            padding: 15px;
             background-color: var(--slightly-lighter-black);
             color: white;
             text-align: center;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         footer a {
@@ -282,83 +282,9 @@
 
         /* Responsive Styles for Larger Screens */
         @media (min-width: 769px) {
-            /* Header */
-            .logo img {
-                width: 120px;
-            }
-
-            /* Hero Section */
-            .hero-content h1 {
-                font-size: 4.5rem;
-            }
-
-            .hero-content p {
-                font-size: 1.7rem;
-            }
-
-            .app-store-button img {
-                max-width: 200px;
-            }
-
-            /* Split Section */
-            .split-section {
-                flex-direction: row;
-                padding: 40px 60px;
-            }
-
-            .split-section .left,
-            .split-section .right {
-                width: 48%;
-                margin: 1%;
-            }
-
-            .split-section .left h2 {
-                text-align: left;
-            }
-
-            .split-section .left p {
-                text-align: left;
-            }
-
-            /* Features Section */
-            .features-grid {
-                flex-direction: row;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-
-            .feature-item {
-                width: calc(33.333% - 40px);
-                margin: 20px;
-            }
-
-            /* Dropdown Menu */
-            .dropdown {
-                width: 150px;
-            }
-
-            /* Hamburger Menu Hidden on Large Screens */
-            .hamburger {
+            /* Redirect to desktop version */
+            body {
                 display: none;
-            }
-
-            .dropdown {
-                display: flex !important;
-                position: static;
-                flex-direction: row;
-                background-color: transparent;
-                padding: 0;
-                width: auto;
-            }
-
-            .dropdown a {
-                padding: 0 15px;
-                color: #fff;
-            }
-
-            .dropdown a:hover {
-                background-color: transparent;
-                text-decoration: underline;
             }
         }
     </style>
@@ -506,6 +432,18 @@
                 header.classList.remove('active');
             }
         });
+
+        // Redirect to desktop version if screen width exceeds mobile size
+        function redirectToDesktop() {
+            const mobileMaxWidth = 768; // Typically, widths above 768px are considered tablets/desktops
+            if (window.innerWidth > mobileMaxWidth) {
+                window.location.href = "/home-desktop";
+            }
+        }
+
+        // Run the redirection check on load and on resize
+        window.addEventListener('load', redirectToDesktop);
+        window.addEventListener('resize', redirectToDesktop);
     </script>
 
 </body>
