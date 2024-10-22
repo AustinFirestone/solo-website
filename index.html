@@ -33,7 +33,7 @@
             --gray-background: #ececec;
             --glow-color: rgba(255, 255, 255, 0.6);
             --shadow-color: rgba(0, 0, 0, 0.8);
-            --slightly-lighter-black: #1c1c1c;
+            --slightly-lighter-black: #131313;
             --accent-color: #d8d8de;
         }
 
@@ -184,6 +184,25 @@
             margin-top: 15px;
         }
 
+        /* New CSS for the Bottom App Store Button */
+        .bottom-app-store-button {
+            display: flex;
+            justify-content: center; /* Centers the button horizontally */
+            align-items: center;    /* Centers the button vertically, if container height allows */
+            width: 100%;            /* Ensures the container spans the full width */
+            margin-top: 20px;       /* Adds some spacing above the button */
+        }
+
+        /* Optional: Adjust the <a> tag to prevent stretching */
+        .bottom-app-store-button a {
+            display: inline-block;  /* Shrinks the <a> tag to fit its content */
+        }
+
+        .bottom-app-store-button img {
+            width: 200px;           /* Increase the width of the button (adjust as needed) */
+            max-width: 100%;        /* Ensure it doesn’t exceed the parent container's width */
+        }
+
         /* Split Screen Section */
         .split-section {
             display: flex;
@@ -196,7 +215,7 @@
 
         .split-section .left,
         .split-section .right {
-            width: 100%;
+            width: 90%;
             padding: 15px;
             background-color: var(--slightly-lighter-black);
             color: white;
@@ -280,13 +299,7 @@
             text-decoration: underline;
         }
 
-        /* Responsive Styles for Larger Screens */
-        @media (min-width: 769px) {
-            /* Redirect to desktop version */
-            body {
-                display: none;
-            }
-        }
+        
     </style>
 </head>
 
@@ -311,8 +324,7 @@
         <!-- Dropdown Menu -->
         <nav class="dropdown">
             <a href="https://soloinnovations.com">Home</a>
-            <a href="https://soloinnovations.com">About</a>
-            <a href="https://soloinnovations.com">Contact</a>
+            <a href="https://soloinnovations.com/connect">Connect</a>
         </nav>
     </header>
 
@@ -333,7 +345,7 @@
         <!-- Left Content -->
         <div class="left">
             <h2>Learn in the Moment</h2>
-            <p>Focus on the speaker and the moment without being distracted by taking notes. Let Solo handle that for you with instant audio transcription and powerful study tools.</p>
+            <p>Focus on the speaker, we’ll handle the notes. Simply start a recording and let Solo capture everything for you.</p>
         </div>
 
         <!-- Right Content (iPhone Video) -->
@@ -367,8 +379,8 @@
 
             <!-- Add more features as needed -->
         </div>
-        <!-- App Store Button for Larger Screens -->
-        <div class="app-store-button" style="display: none;">
+        <!-- App Store Button at the Bottom -->
+        <div class="bottom-app-store-button">
             <a href="https://apps.apple.com">
                 <img src="assets/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg" alt="Download on the App Store">
             </a>
@@ -434,16 +446,17 @@
         });
 
         // Redirect to desktop version if screen width exceeds mobile size
-        function redirectToDesktop() {
+        /*function redirectToDesktop() {
             const mobileMaxWidth = 768; // Typically, widths above 768px are considered tablets/desktops
             if (window.innerWidth > mobileMaxWidth) {
                 window.location.href = "/home-desktop";
             }
+            return
         }
 
         // Run the redirection check on load and on resize
         window.addEventListener('load', redirectToDesktop);
-        window.addEventListener('resize', redirectToDesktop);
+        window.addEventListener('resize', redirectToDesktop);*/
     </script>
 
 </body>
