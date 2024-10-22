@@ -220,14 +220,37 @@
             background-color: black;
             padding: 30px;
             border-radius: 10px;
+            /* Set a specific height to accommodate the rotated video */
+            height: 500px; /* Adjust this value as needed */
+            flex-shrink: 0;
         }
 
-        .split-section .right video {
-            max-width: 100%;
-            height: auto;
-            object-fit: cover;
-            clip-path: inset(0% 1.5% 0% 1.8%);
-            transform: rotate(90deg);
+        /* Video Container */
+        .video-container {
+            /* Maintain aspect ratio and allow space for rotation */
+            width: 105%;
+            height: 105%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden; /* Hide any overflow due to rotation */
+            position: relative;
+        }
+
+        /* Rotated Video Styles */
+        .video-container video {
+            /* Rotate the video 90 degrees */
+            /*transform: rotate(90deg);*/
+
+            /* Adjust the transform origin if needed */
+            transform-origin: center center;
+
+            /* Set width and height to fit the container after rotation */
+            width: auto;
+            height: 105%;
+
+            /* Optional: Add a smooth transition */
+            transition: transform 0.3s ease;
         }
 
         /* Features Section */
@@ -294,7 +317,28 @@
             margin: 50px 0;
         }
 
-        /* Responsive styles (if any) */
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .split-section {
+                flex-direction: column;
+                padding: 50px 20px;
+            }
+
+            .split-section .left,
+            .split-section .right {
+                width: 100%;
+                height: auto;
+            }
+
+            .split-section .right {
+                height: 300px; /* Adjust for smaller screens */
+            }
+
+            .video-container video {
+                height: 100%;
+                width: auto;
+            }
+        }
     </style>
 </head>
 
@@ -345,9 +389,11 @@
 
         <!-- Right Content (iPhone Video) -->
         <div class="right">
-            <video src="assets/demo.mp4" autoplay loop muted playsinline>
-                Your browser does not support the video tag.
-            </video>
+            <div class="video-container">
+                <video src="assets/demo.mp4" autoplay loop muted playsinline>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
         </div>
     </section>
 
