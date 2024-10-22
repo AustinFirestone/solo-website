@@ -2,27 +2,6 @@
 <html lang="en">
 
 <head>
-    <!-- Redirect Script for Desktop Users -->
-    <script>
-        (function() {
-            // Define the breakpoint for desktop (e.g., 768px)
-            const desktopBreakpoint = 768;
-
-            // Function to check screen width and redirect if necessary
-            function redirectIfDesktop() {
-                if (window.innerWidth > desktopBreakpoint) {
-                    window.location.href = "/home-desktop";
-                }
-            }
-
-            // Execute the check as early as possible
-            redirectIfDesktop();
-
-            // Optional: Also check on window resize
-            window.addEventListener('resize', redirectIfDesktop);
-        })();
-    </script>
-
     <!-- Meta Tags and Styles -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -373,6 +352,14 @@
         footer a:hover {
             text-decoration: underline;
         }
+
+        /* Responsive Styles for Larger Screens */
+        @media (min-width: 769px) {
+            /* Redirect to desktop version */
+            body {
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -433,8 +420,7 @@
     <section class="philosophy-section">
         <h2>Our Philosophy</h2>
         <p id="philosophy-text">
-            Learning is not about memorizing the dots, but rather connecting them. Let computers and AI handle the memorization, note-taking, and holding the dots as much as possible so we can focus on connecting them and thinking creatively at a higher level.
-        </p>
+            Learning is not about memorizing the dots, but rather connecting them. Let computers and AI handle the memorization, note-taking, and holding the dots as much as possible so we can focus on connecting them and thinking creatively at a higher level.        </p>
         <div class="philosophy-buttons">
             <button id="explain-like-5">Explain this to me like I'm 5</button>
             <button id="explain-like-phd">Explain this to me like I'm a PhD</button>
@@ -442,50 +428,51 @@
         <button id="reset-philosophy">Reset</button>
         <p>Grasp the idea in person, review the details later</p>
         <p>That's why we created Solo.</p>
+        
     </section>
 
-    <!-- Features Section -->
-    <section class="features-section">
-        <div class="features-grid">
-            <!-- Bookmark Feature -->
-            <div class="feature-item">
-                <h3>Smart Bookmarking</h3>
-                <p>Save key moments in your audio recordings by pressing the -Highlight- or -Confused- buttons. Solo will extract the highlights into a list and generate explanations for confusion points.</p>
-                <!-- iPhone Image Placeholder -->
-                <img src="assets/iphone1.png" alt="Smart Bookmarking on iPhone" class="feature-image">
-            </div>
+   <!-- Features Section -->
+   <section class="features-section">
+    <div class="features-grid">
+        <!-- Bookmark Feature -->
+        <div class="feature-item">
+            <h3>Smart Bookmarking</h3>
+            <p>Save key moments in your audio recordings by pressing the -Highlight- or -Confused- buttons. Solo will extract the highlights into a list and generate explanations for confusion points.</p>
+            <!-- iPhone Image Placeholder -->
+            <img src="assets/iphone1.png" alt="Smart Bookmarking on iPhone" class="feature-image">
+        </div>
 
-            <!-- Flashcards Feature -->
-            <div class="feature-item">
-                <h3>Custom Quizzes</h3>
-                <p>Turn any lecture into a personalized study tool with custom quizzes for a single note or an entire class.</p>
-                <!-- iPhone Image Placeholder -->
-                <img src="assets/iphone2.png" alt="Instant Flashcards on iPhone" class="feature-image">
-            </div>
+        <!-- Flashcards Feature -->
+        <div class="feature-item">
+            <h3>Custom Quizzes</h3>
+            <p>Turn any lecture into a personalized study tool with custom quizzes for a single note or an entire class.</p>
+            <!-- iPhone Image Placeholder -->
+            <img src="assets/iphone2.png" alt="Instant Flashcards on iPhone" class="feature-image">
+        </div>
 
-            <!-- Quiz Feature -->
-            <div class="feature-item">
-                <h3>Quick Review</h3>
-                <p>Review an entire lecture in minutes. Solo will take you through your audio transcript, skipping to your highlights, confusion points, and key concepts determined by the AI.</p>
-                <!-- iPhone Image Placeholder -->
-                <img src="assets/iphone3.png" alt="Smart Review on iPhone" class="feature-image">
-            </div>
+        <!-- Quiz Feature -->
+        <div class="feature-item">
+            <h3>Quick Review</h3>
+            <p>Review an entire lecture in minutes. Solo will take you through your audio transcript, skipping to your highlights, confusion points, and key concepts determined by the AI.</p>
+            <!-- iPhone Image Placeholder -->
+            <img src="assets/iphone3.png" alt="Smart Review on iPhone" class="feature-image">
+        </div>
 
-            <!-- Flashcards Feature -->
-            <div class="feature-item">
-                <h3>Instant Flashcards</h3>
-                <p>Automatically generate flashcards from a single note or an entire class. View the flashcards in app or easily export them to Quizlet.</p>
-                <!-- iPhone Image Placeholder -->
-                <img src="assets/iphone4.png" alt="Smart Review on iPhone" class="feature-image">
-            </div>
+        <!-- Quiz Feature -->
+        <div class="feature-item">
+            <h3>Intant Flashcards</h3>
+            <p>Automatically generate flashcards from a single note or an entire class. View the flashcards in app or easily export them to Quizlet.</p>
+            <!-- iPhone Image Placeholder -->
+            <img src="assets/iphone4.png" alt="Smart Review on iPhone" class="feature-image">
+        </div>
 
-            <!-- Intelligent Summaries Feature -->
-            <div class="feature-item">
-                <h3>Intelligent Summaries</h3>
-                <p>Go beyond simple summaries with Analogies, Real-World Applications, and Points for Further Research.</p>
-                <!-- iPhone Image Placeholder -->
-                <img src="assets/iphone5.png" alt="Smart Review on iPhone" class="feature-image">
-            </div>
+        <!-- Quiz Feature -->
+        <div class="feature-item">
+            <h3>Intelligent Summaries</h3>
+            <p>Go beyond simple summaries with Analogies, Real-World Applications, and Points for Further Research</p>
+            <!-- iPhone Image Placeholder -->
+            <img src="assets/iphone5.png" alt="Smart Review on iPhone" class="feature-image">
+        </div>
 
             <!-- Add more features as needed -->
         </div>
@@ -555,19 +542,30 @@
             }
         });
 
+        // Redirect to desktop version if screen width exceeds mobile size
+        function redirectToDesktop() {
+            const mobileMaxWidth = 768; // Typically, widths above 768px are considered tablets/desktops
+            if (window.innerWidth > mobileMaxWidth) {
+                window.location.href = "/home-desktop";
+            }
+            return
+        }
+
+        // Run the redirection check on load and on resize
+        window.addEventListener('load', redirectToDesktop);
+        window.addEventListener('resize', redirectToDesktop);
+
         // Philosophy Section Interaction
         document.getElementById('explain-like-5').addEventListener('click', function () {
             document.getElementById('philosophy-text').textContent = "Learning isn’t just about collecting Lego bricks, but about building something with them. It’s more fun to make a cool creation than just hold the pieces. Let computers keep track of the bricks, so we can focus on building amazing things!";
         });
 
         document.getElementById('explain-like-phd').addEventListener('click', function () {
-            document.getElementById('philosophy-text').textContent = "Much like the Heisenberg Uncertainty Principle, which asserts that increasing precision in measuring one property, such as an electron's position, inherently blurs the accuracy of its momentum, an excessive focus on rote memorization diminishes our ability to engage in deep conceptual exploration. By offloading the retention of discrete facts to AI, we preserve cognitive capacity for abstract synthesis, allowing for true innovation and the advancement of knowledge.";
-        });
+            document.getElementById('philosophy-text').textContent = "Much like the Heisenberg Uncertainty Principle, which asserts that increasing precision in measuring one property, such as an electron's position, inherently blurs the accuracy of its momentum, an excessive focus on rote memorization diminishes our ability to engage in deep conceptual exploration. By offloading the retention of discrete facts to AI, we preserve cognitive capacity for abstract synthesis, allowing for true innovation and the advancement of knowledge.";        });
 
         document.getElementById('reset-philosophy').addEventListener('click', function () {
-            document.getElementById('philosophy-text').textContent = "Learning is not about memorizing the dots, but rather connecting them. Let computers and AI handle the memorization, note-taking, and holding the dots as much as possible so we can focus on connecting them and thinking creatively at a higher level.";
-        });
-    </script>
+            document.getElementById('philosophy-text').textContent = "Learning is not about memorizing the dots, but rather connecting them. Let computers and AI handle the memorization, note-taking, and holding the dots as much as possible so we can focus on connecting them and thinking creatively at a higher level."; });
+                </script>
 
 </body>
 
