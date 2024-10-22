@@ -2,6 +2,27 @@
 <html lang="en">
 
 <head>
+    <!-- Redirect Script for Desktop Users -->
+    <script>
+        (function() {
+            // Define the breakpoint for desktop (e.g., 768px)
+            const desktopBreakpoint = 768;
+
+            // Function to check screen width and redirect if necessary
+            function redirectIfDesktop() {
+                if (window.innerWidth > desktopBreakpoint) {
+                    window.location.href = "/home-desktop";
+                }
+            }
+
+            // Execute the check as early as possible
+            redirectIfDesktop();
+
+            // Optional: Also check on window resize
+            window.addEventListener('resize', redirectIfDesktop);
+        })();
+    </script>
+
     <!-- Meta Tags and Styles -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -321,6 +342,16 @@
             transition: transform 0.3s ease;
         }
 
+        /* Feature Image Styles */
+        .feature-image {
+            width: 100%;
+            max-width: 300px; /* Adjust as needed */
+            height: auto;
+            margin-top: 15px;
+            border-radius: 20px; /* Optional */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional */
+        }
+
         .feature-item:hover {
             transform: translateY(-3px);
         }
@@ -387,7 +418,7 @@
         <!-- Left Content -->
         <div class="left">
             <h2>Learn in the Moment</h2>
-            <p>Focus on the speaker, we’ll handle the notes. Simply start a recording and let Solo capture everything for you.</p>
+            <p>Focus on the speaker, we’ll handle the notes. Simply start a recording and let Solo capture everything.</p>
         </div>
 
         <!-- Right Content (iPhone Video) -->
@@ -402,7 +433,8 @@
     <section class="philosophy-section">
         <h2>Our Philosophy</h2>
         <p id="philosophy-text">
-            Learning is not about memorizing the dots, but rather connecting them. Let computers and AI handle the memorization, note-taking, and holding the dots as much as possible so we can focus on connecting them and thinking creatively at a higher level.        </p>
+            Learning is not about memorizing the dots, but rather connecting them. Let computers and AI handle the memorization, note-taking, and holding the dots as much as possible so we can focus on connecting them and thinking creatively at a higher level.
+        </p>
         <div class="philosophy-buttons">
             <button id="explain-like-5">Explain this to me like I'm 5</button>
             <button id="explain-like-phd">Explain this to me like I'm a PhD</button>
@@ -410,7 +442,6 @@
         <button id="reset-philosophy">Reset</button>
         <p>Grasp the idea in person, review the details later</p>
         <p>That's why we created Solo.</p>
-        
     </section>
 
     <!-- Features Section -->
@@ -419,19 +450,41 @@
             <!-- Bookmark Feature -->
             <div class="feature-item">
                 <h3>Smart Bookmarking</h3>
-                <p>Save key moments in your audio recordings and jump back to them with ease. Perfect for keeping track of important points without pausing your learning flow.</p>
+                <p>Save key moments in your audio recordings by pressing the -Highlight- or -Confused- buttons. Solo will extract the highlights into a list and generate explanations for confusion points.</p>
+                <!-- iPhone Image Placeholder -->
+                <img src="assets/iphone1.png" alt="Smart Bookmarking on iPhone" class="feature-image">
+            </div>
+
+            <!-- Flashcards Feature -->
+            <div class="feature-item">
+                <h3>Custom Quizzes</h3>
+                <p>Turn any lecture into a personalized study tool with custom quizzes for a single note or an entire class.</p>
+                <!-- iPhone Image Placeholder -->
+                <img src="assets/iphone2.png" alt="Instant Flashcards on iPhone" class="feature-image">
+            </div>
+
+            <!-- Quiz Feature -->
+            <div class="feature-item">
+                <h3>Quick Review</h3>
+                <p>Review an entire lecture in minutes. Solo will take you through your audio transcript, skipping to your highlights, confusion points, and key concepts determined by the AI.</p>
+                <!-- iPhone Image Placeholder -->
+                <img src="assets/iphone3.png" alt="Smart Review on iPhone" class="feature-image">
             </div>
 
             <!-- Flashcards Feature -->
             <div class="feature-item">
                 <h3>Instant Flashcards</h3>
-                <p>Automatically generate flashcards from your notes and quizzes and export them to Quizlet. Turn any lecture into a personalized study tool.</p>
+                <p>Automatically generate flashcards from a single note or an entire class. View the flashcards in app or easily export them to Quizlet.</p>
+                <!-- iPhone Image Placeholder -->
+                <img src="assets/iphone4.png" alt="Smart Review on iPhone" class="feature-image">
             </div>
 
-            <!-- Quiz Feature -->
+            <!-- Intelligent Summaries Feature -->
             <div class="feature-item">
-                <h3>Quizzes on Demand</h3>
-                <p>Test your knowledge with custom quizzes generated from your notes. Solo keeps you sharp by turning your content into interactive learning experiences.</p>
+                <h3>Intelligent Summaries</h3>
+                <p>Go beyond simple summaries with Analogies, Real-World Applications, and Points for Further Research.</p>
+                <!-- iPhone Image Placeholder -->
+                <img src="assets/iphone5.png" alt="Smart Review on iPhone" class="feature-image">
             </div>
 
             <!-- Add more features as needed -->
@@ -453,7 +506,7 @@
     <!-- Scripts -->
     <script>
         // Typing Animation for the Words
-        const words = ["notes", "flashcards", "quizzes"];
+        const words = ["notes", "flashcards", "quizzes", "highlights", "summaries"];
         let i = 0;
         let typingDelay = 75;
         let eraseDelay = 50;
@@ -508,11 +561,13 @@
         });
 
         document.getElementById('explain-like-phd').addEventListener('click', function () {
-            document.getElementById('philosophy-text').textContent = "Much like the Heisenberg Uncertainty Principle, which asserts that increasing precision in measuring one property, such as an electron's position, inherently blurs the accuracy of its momentum, an excessive focus on rote memorization diminishes our ability to engage in deep conceptual exploration. By offloading the retention of discrete facts to AI, we preserve cognitive capacity for abstract synthesis, allowing for true innovation and the advancement of knowledge.";        });
+            document.getElementById('philosophy-text').textContent = "Much like the Heisenberg Uncertainty Principle, which asserts that increasing precision in measuring one property, such as an electron's position, inherently blurs the accuracy of its momentum, an excessive focus on rote memorization diminishes our ability to engage in deep conceptual exploration. By offloading the retention of discrete facts to AI, we preserve cognitive capacity for abstract synthesis, allowing for true innovation and the advancement of knowledge.";
+        });
 
         document.getElementById('reset-philosophy').addEventListener('click', function () {
-            document.getElementById('philosophy-text').textContent = "Learning is not about memorizing the dots, but rather connecting them. Let computers and AI handle the memorization, note-taking, and holding the dots as much as possible so we can focus on connecting them and thinking creatively at a higher level."; });
-                </script>
+            document.getElementById('philosophy-text').textContent = "Learning is not about memorizing the dots, but rather connecting them. Let computers and AI handle the memorization, note-taking, and holding the dots as much as possible so we can focus on connecting them and thinking creatively at a higher level.";
+        });
+    </script>
 
 </body>
 
