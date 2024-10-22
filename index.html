@@ -249,6 +249,50 @@
             border-radius: 10px;
         }
 
+        /* Philosophy Section */
+        .philosophy-section {
+            padding: 15px;
+            background-color: var(--slightly-lighter-black);
+            color: white;
+            text-align: center;
+            margin: 15px;
+            border-radius: 10px;
+        }
+
+        .philosophy-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .philosophy-section p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .philosophy-buttons {
+            margin: 15px 0;
+        }
+
+        .philosophy-buttons button,
+        #reset-philosophy {
+            padding: 10px 15px;
+            margin: 5px;
+            background-color: var(--accent-color);
+            color: black;
+            border: none;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .philosophy-buttons button:hover,
+        #reset-philosophy:hover {
+            background-color: #bbb;
+        }
+
         /* Features Section */
         .features-section {
             padding: 30px 10px;
@@ -298,8 +342,6 @@
         footer a:hover {
             text-decoration: underline;
         }
-
-        
     </style>
 </head>
 
@@ -354,6 +396,21 @@
                 Your browser does not support the video tag.
             </video>
         </div>
+    </section>
+
+    <!-- Our Philosophy Section -->
+    <section class="philosophy-section">
+        <h2>Our Philosophy</h2>
+        <p id="philosophy-text">
+            Learning is not about memorizing the dots, but rather connecting them. Let computers and AI handle the memorization, note-taking, and holding the dots as much as possible so we can focus on connecting them and thinking creatively at a higher level.        </p>
+        <div class="philosophy-buttons">
+            <button id="explain-like-5">Explain this to me like I'm 5</button>
+            <button id="explain-like-phd">Explain this to me like I'm a PhD</button>
+        </div>
+        <button id="reset-philosophy">Reset</button>
+        <p>Grasp the idea in person, review the details later</p>
+        <p>That's why we created Solo.</p>
+        
     </section>
 
     <!-- Features Section -->
@@ -445,19 +502,17 @@
             }
         });
 
-        // Redirect to desktop version if screen width exceeds mobile size
-        /*function redirectToDesktop() {
-            const mobileMaxWidth = 768; // Typically, widths above 768px are considered tablets/desktops
-            if (window.innerWidth > mobileMaxWidth) {
-                window.location.href = "/home-desktop";
-            }
-            return
-        }
+        // Philosophy Section Interaction
+        document.getElementById('explain-like-5').addEventListener('click', function () {
+            document.getElementById('philosophy-text').textContent = "Learning isn’t just about collecting Lego bricks, but about building something with them. It’s more fun to make a cool creation than just hold the pieces. Let computers keep track of the bricks, so we can focus on building amazing things!";
+        });
 
-        // Run the redirection check on load and on resize
-        window.addEventListener('load', redirectToDesktop);
-        window.addEventListener('resize', redirectToDesktop);*/
-    </script>
+        document.getElementById('explain-like-phd').addEventListener('click', function () {
+            document.getElementById('philosophy-text').textContent = "Much like the Heisenberg Uncertainty Principle, which asserts that increasing precision in measuring one property, such as an electron's position, inherently blurs the accuracy of its momentum, an excessive focus on rote memorization diminishes our ability to engage in deep conceptual exploration. By offloading the retention of discrete facts to AI, we preserve cognitive capacity for abstract synthesis, allowing for true innovation and the advancement of knowledge.";        });
+
+        document.getElementById('reset-philosophy').addEventListener('click', function () {
+            document.getElementById('philosophy-text').textContent = "Learning is not about memorizing the dots, but rather connecting them. Let computers and AI handle the memorization, note-taking, and holding the dots as much as possible so we can focus on connecting them and thinking creatively at a higher level."; });
+                </script>
 
 </body>
 
